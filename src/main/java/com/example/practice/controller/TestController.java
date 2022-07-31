@@ -45,6 +45,7 @@ public class TestController {
     @GetMapping("/test02")
     public BasicResponse test02(Integer[] ids) {
         log.info("根据ids获取用户执行了");
+        System.out.println("liudy23测试上传代码");
         List<User> users = userService.getUserByIds(ids);
         if (users.size() > 0) {
             return ResultUtils.success(users);
