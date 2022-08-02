@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.practice.common.ajax.ErrorCode;
 import com.example.practice.common.exception.BusinessException;
 import com.example.practice.domain.User;
+import com.example.practice.domain.vo.ExportUserVO;
 import com.example.practice.service.UserService;
 import com.example.practice.mapper.UserMapper;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
-    public List<User> getUserByIds(Integer[] ids) {
-        List<User> users = this.baseMapper.selectList(new QueryWrapper<User>().eq("isDelete", 0).in("id", ids));
+    public List<User> getUserByIds(Integer[] userIds) {
+        List<User> users = this.baseMapper.selectList(new QueryWrapper<User>().eq("isDelete", 0).in("id", userIds));
         if (users == null || users.size() == 0) {
             throw new BusinessException(ErrorCode.NO_OBTAIN_DATA,"数据库该id没有数据");
         }
@@ -44,6 +45,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public List<User> getUserByIds03(Integer[] ids) {
         List<Integer> listIds = Arrays.asList(ids);
         return this.baseMapper.getUserByIds03(listIds);
+    }
+
+    @Override
+    public List<ExportUserVO> getExportUserVO() {
+        return this.baseMapper.getExportUserVO();
     }
 }
 

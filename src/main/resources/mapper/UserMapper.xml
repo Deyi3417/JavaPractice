@@ -41,4 +41,18 @@
         SELECT * FROM `user` u WHERE u.`id` IN
         <foreach collection="list" index="index" item="item" open="(" separator="," close=")">#{item}</foreach>
     </select>
+    <select id="getExportUserVO" resultType="com.example.practice.domain.vo.ExportUserVO">
+        SELECT u.`id`,
+               u.`username`,
+               u.`userAccount`,
+               (CASE u.`gender`
+                    WHEN 0 THEN '男'
+                    WHEN 1 THEN '女'
+                    ELSE '--'
+                   END) genderName,
+               u.`phone`,
+               u.`createTime`
+        FROM `user` u
+        WHERE u.`isDelete` = 0
+    </select>
 </mapper>

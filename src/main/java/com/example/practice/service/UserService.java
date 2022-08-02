@@ -2,6 +2,7 @@ package com.example.practice.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.practice.domain.User;
+import com.example.practice.domain.vo.ExportUserVO;
 
 import java.util.List;
 
@@ -42,4 +43,11 @@ public interface UserService extends IService<User> {
      * @return 对应的用户信息
      */
     List<User> getUserByIds03(Integer[] ids);
+
+    /**
+     * 获取导出用户列表
+     *
+     * @return 导出用户信息
+     */
+    List<ExportUserVO> getExportUserVO();
 }
