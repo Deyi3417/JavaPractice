@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@EnableScheduling
 @EnableAsync
 public class UserScheduledTask {
 
@@ -23,7 +22,7 @@ public class UserScheduledTask {
         @Component 注解用于对那些比较中立的类进行注释
         相对与在持久层、业务层和控制层分别采用 @Repository、@Service 和 @Controller 对分层中的类进行注释
 
-        @EnableScheduling 开启定时任务
+        @EnableScheduling 开启定时任务 有该注解才能够跑定时任务
         @Scheduled 添加定时任务  @Scheduled(cron = "0/2 * * * * ?") cron 表达式
 
         @EnableAsync 开启多线程
