@@ -2,6 +2,7 @@ package com.example.practice.common.runner;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,9 +13,10 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
+@Order(2)
 public class UserServiceRunner implements CommandLineRunner {
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         log.info("Start loading initialize parameters");
         System.out.println("中间是逻辑代码");
         log.info("end loading initialize parameter");
