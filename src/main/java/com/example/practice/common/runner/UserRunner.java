@@ -19,7 +19,7 @@ public class UserRunner implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info("Start to loading user data");
-        System.out.println("liudy23 测试自启动");
+        System.out.println("liudy23 测试启动加载初始数据--逻辑代码块");
         log.info("End CommandLineRunner......");
     }
 }
