@@ -9,7 +9,7 @@ public enum ErrorCode {
     SUCCESS(200, "操作成功", ""),
     PARAM_NULL_ERROR(400, "请求参数错误", ""),
     NO_AUTH(400, "用户无权限", ""),
-    NO_OBTAIN_DATA(200, "数据库没有用户参数", ""),
+    NO_OBTAIN_DATA(200, "数据库没有该数据", ""),
     NO_LOGIN(400, "用户没登录", ""),
     SYSTEM_EXCEPTION(500, "系统异常", "");
     private int code;

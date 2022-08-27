@@ -80,4 +80,10 @@ public class TestController {
         EasyExcel.write(os).withTemplate("E:/java/template/exportExcelTemplate.xlsx").sheet().doFill(userList);
         log.info("End exporting excel");
     }
+
+    @GetMapping("/list")
+    public BasicResponse<List<User>> list() {
+        List<User> userList = userService.list();
+        return ResultUtils.success(userList);
+    }
 }

@@ -29,7 +29,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Override
     public List<User> getUserByIds(Integer[] userIds) {
-        List<User> users = this.baseMapper.selectList(new QueryWrapper<User>().eq("isDelete", 0).in("id", userIds));
+        List<User> users = this.baseMapper.selectList(new QueryWrapper<User>().eq("is_delete", 0).in("id", userIds));
         if (users == null || users.size() == 0) {
             throw new BusinessException(ErrorCode.NO_OBTAIN_DATA,"数据库该id没有数据");
         }

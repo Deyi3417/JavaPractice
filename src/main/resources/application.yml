@@ -1,12 +1,14 @@
 server:
   port: 9080
+  servlet:
+    context-path: /api
 
 spring:
   application:
     name: practice
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/yupi
+    url: jdbc:mysql://localhost:3306/user_center
     username: root
     password: root
 
@@ -14,7 +16,7 @@ spring:
     timeout: 86400
 mybatis-plus:
   configuration:
-    map-underscore-to-camel-case: false
+    map-underscore-to-camel-case: true
   global-config:
     db-config:
       logic-delete-field: isDelete

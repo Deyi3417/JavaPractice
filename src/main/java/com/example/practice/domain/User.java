@@ -32,13 +32,13 @@ public class User implements Serializable {
     /**
      * 登录账号
      */
-    @TableField(value = "userAccount")
+    @TableField(value = "user_account")
     private String userAccount;
 
     /**
      * 用户头像
      */
-    @TableField(value = "avatarUrl")
+    @TableField(value = "avatar_url")
     private String avatarUrl;
 
     /**
@@ -50,7 +50,7 @@ public class User implements Serializable {
     /**
      * 用户密码
      */
-    @TableField(value = "userPassword")
+    @TableField(value = "user_password")
     private String userPassword;
 
     /**
@@ -69,37 +69,37 @@ public class User implements Serializable {
      * 用户状态0-正常
 
      */
-    @TableField(value = "userStatus")
+    @TableField(value = "user_status")
     private Integer userStatus;
 
     /**
      * 创建时间
      */
-    @TableField(value = "createTime")
+    @TableField(value = "create_time")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    @TableField(value = "updateTime")
+    @TableField(value = "update_time")
     private Date updateTime;
 
     /**
      * 是否删除(逻辑删除0 1)
      */
-    @TableField(value = "isDelete")
+    @TableField(value = "is_delete")
     private Integer isDelete;
 
     /**
      * 用户角色0-普通用户 1-管理员
      */
-    @TableField(value = "userRole")
+    @TableField(value = "user_role")
     private Integer userRole;
 
     /**
      * 星球编号
      */
-    @TableField(value = "planetCode")
+    @TableField(value = "planet_code")
     private String planetCode;
 
     /**
