@@ -2,6 +2,8 @@ package com.example.practice.controller;
 
 import com.example.practice.domain.User;
 import com.example.practice.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,18 +19,21 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/user")
+@Api(tags = "用户表控制器")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/list")
+    @ApiOperation("获取用户列表")
     public List<User> getUser() {
         log.info("程序执行了");
         return userService.getUserList();
     }
 
     @GetMapping("/getByIds")
+    @ApiOperation("根据用户id获取目标用户信息")
     public List<User> getUserByIds(Integer[] ids) {
         log.info("根据ids获取用户执行了");
         return userService.getUserByIds(ids);

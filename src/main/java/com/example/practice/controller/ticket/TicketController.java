@@ -5,6 +5,8 @@ import com.example.practice.common.ajax.ErrorCode;
 import com.example.practice.common.ajax.ResultUtils;
 import com.example.practice.domain.Ticket;
 import com.example.practice.service.TicketService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @Slf4j
+@Api(tags = "用户中心项目不合格票控制器")
 @RequestMapping("/ticket")
 public class TicketController {
 
@@ -28,11 +31,13 @@ public class TicketController {
     private TicketService ticketService;
 
     @GetMapping("/list")
+    @ApiOperation("获取不合格票列表")
     public BasicResponse<List<Ticket>> list() {
         return ResultUtils.success(ticketService.list());
     }
 
     @GetMapping("/getTicketById")
+    @ApiOperation("根据ID获取不合格票")
     public BasicResponse<Ticket> getById(Long id) {
         Ticket ticket = ticketService.getById(id);
         if (ticket == null) {
