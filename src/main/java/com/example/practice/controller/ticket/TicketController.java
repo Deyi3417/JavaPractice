@@ -4,15 +4,15 @@ import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ErrorCode;
 import com.example.practice.common.ajax.ResultUtils;
 import com.example.practice.domain.Ticket;
-import com.example.practice.domain.dto.TicketDTO;
 import com.example.practice.service.TicketService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -45,14 +45,5 @@ public class TicketController {
         }
         return ResultUtils.success(ticket);
     }
-
-    @PostMapping("/level")
-    @ApiOperation("根据ID，处理方式，等级获取Ticket")
-    public BasicResponse<Ticket> level(@Valid @RequestBody TicketDTO ticketDTO) {
-        Ticket ticket = ticketService.getTicket(ticketDTO);
-        return ResultUtils.success(ticket);
-    }
-
-
 
 }
