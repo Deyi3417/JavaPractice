@@ -2,8 +2,9 @@ server:
   port: 9080
   servlet:
     context-path: /api
-
 spring:
+  profiles:
+    active: dev
   application:
     name: practice
   datasource:

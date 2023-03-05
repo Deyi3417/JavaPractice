@@ -1,11 +1,9 @@
 package com.example.practice.common.config;
 
-import com.example.practice.domain.Ticket;
-import com.example.practice.domain.User;
-import com.fasterxml.classmate.ResolvedType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -17,10 +15,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * 自定义接口文档swagger配置
  *
  * @author 刘德意
+ * @Profile("prod") 注解 限制注解在什么环境中使用，开发环境dev 生产环境prod
+ * @Profile 主要作用在于指定环境加载指定的对象到容器中
+ * 线上环境不要把接口暴露出去，可以通过在SwaggerConfig配置文件开头加上@Profile({"dev","test"})限定配置文件仅在部分环境开启
+ *
  * @date 2022/8/28
  */
 @Configuration
 @EnableSwagger2
+@Profile({"dev","test"}) // 使用注解(开发环境中此对象才会进行注入到容器中)
+// @ConditionalOnProperty // 目的是针对不同的配置，注册不同的配置bean。
 public class SwaggerConfig {
 
     @Value("${swagger.enable}")
