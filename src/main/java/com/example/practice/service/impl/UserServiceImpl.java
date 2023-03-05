@@ -18,9 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import javax.annotation.Resource;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -31,7 +30,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @Override
@@ -84,7 +83,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     /**
-     * SQL查询 在内存中处理
+     * 内存查询 在内存中处理，优点时比较灵活，可以通过并发进一步优化
      *
      * @param tagNameList 标签 json 列表
      * @return
@@ -104,8 +103,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             // 使用 gson 反序列化 将json 转为java对象
             Set<String> tempTagsName = gson.fromJson(tagsStr, new TypeToken<Set<String>>() {
             }.getType());
+            // 判空
+            tempTagsName = Optional.ofNullable(tempTagsName).orElse(new HashSet<>());
             for (String tagName : tagNameList) {
                 if (!tempTagsName.contains(tagName)) {
+                    // 如果true 保留，如果false去除
                     return false;
                 }
             }

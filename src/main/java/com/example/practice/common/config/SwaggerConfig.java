@@ -14,6 +14,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
+ * 自定义接口文档swagger配置
+ *
  * @author 刘德意
  * @date 2022/8/28
  */
@@ -23,6 +25,7 @@ public class SwaggerConfig {
 
     @Value("${swagger.enable}")
     private boolean enable;
+
     @Bean
     public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -34,6 +37,11 @@ public class SwaggerConfig {
 
     }
 
+    /**
+     * api信息
+     *
+     * @return
+     */
     private ApiInfo adminApiInfo() {
         return new ApiInfoBuilder()
                 .title("user-center API文档")

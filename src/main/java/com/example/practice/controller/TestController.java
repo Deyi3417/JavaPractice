@@ -64,6 +64,12 @@ public class TestController {
         }
     }
 
+    /**
+     * https://easyexcel.opensource.alibaba.com/docs/current/quickstart/read
+     *
+     * @param response
+     * @throws IOException
+     */
     @GetMapping("/export")
     public void exportExcel(HttpServletResponse response) throws IOException {
         log.info("Start exporting excel");
