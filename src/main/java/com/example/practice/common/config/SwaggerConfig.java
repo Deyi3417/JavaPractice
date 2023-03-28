@@ -23,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-@Profile({"dev","test"}) // 使用注解(开发环境中此对象才会进行注入到容器中)
+//@Profile({"dev","test"}) // 使用注解(开发环境中此对象才会进行注入到容器中)
 // @ConditionalOnProperty // 目的是针对不同的配置，注册不同的配置bean。
 public class SwaggerConfig {
 

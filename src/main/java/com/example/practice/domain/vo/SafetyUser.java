@@ -61,4 +61,7 @@ public class SafetyUser implements Serializable {
 
     @ApiModelProperty("用户标签")
     private String tags;
+
+    @ApiModelProperty("个人简介")
+    private String profile;
 }

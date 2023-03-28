@@ -4,15 +4,17 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Data;
 
 /**
  * 用户表
+ *
  * @author 刘德意
  * @TableName user
  * @date 2022-07-30
  */
-@TableName(value ="user")
+@TableName(value = "user")
 @Data
 public class User implements Serializable {
     /**
@@ -65,7 +67,6 @@ public class User implements Serializable {
 
     /**
      * 用户状态0-正常
-
      */
     @TableField(value = "user_status")
     private Integer userStatus;
@@ -106,6 +107,12 @@ public class User implements Serializable {
      */
     @TableField(value = "tags")
     private String tags;
+
+    /**
+     * 个人简介
+     */
+    @TableField(value = "profile")
+    private String profile;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
