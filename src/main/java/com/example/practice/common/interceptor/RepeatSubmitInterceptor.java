@@ -6,8 +6,6 @@ import com.example.practice.common.annotation.RepeatSubmit;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,7 +16,7 @@ import java.lang.reflect.Method;
 import java.util.Date;
 
 /**
- * 防止重复提交拦截器
+ * 防止重复提交拦截器-拦截器的原理，自定义注解比肩重复提交
  *
  * @author : liudy23
  * @data : 2023/3/28
@@ -29,10 +27,11 @@ public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("{}====compareParams 执行了 ==== ", DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        log.info("{}====liudy23测试preHandle 执行了 ==== ", DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();
+            // 获取注解
             RepeatSubmit annotation = method.getAnnotation(RepeatSubmit.class);
             if (annotation != null) {
                 if (this.isRepeatSubmit(request, annotation)) {

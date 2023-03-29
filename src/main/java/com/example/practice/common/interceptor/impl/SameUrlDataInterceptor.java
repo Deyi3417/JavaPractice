@@ -1,6 +1,8 @@
 package com.example.practice.common.interceptor.impl;
 
 import com.alibaba.excel.util.DateUtils;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.practice.common.annotation.RepeatSubmit;
 import com.example.practice.common.interceptor.RepeatSubmitInterceptor;
 import com.google.gson.Gson;
@@ -55,12 +57,10 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         HttpSession session = request.getSession();
         Object sessionObj = session.getAttribute(SESSION_REPEAT_KEY);
         if (sessionObj != null) {
-            Type type = new TypeToken<Map<String, Object>>() {
-            }.getType();
-            Map<String, Object> sessionMap = gson.fromJson(gson.toJson(sessionObj), type);
+            Map<String, Object> sessionMap = JSON.parseObject(JSON.toJSONString(sessionObj), Map.class);
             if (sessionMap.containsKey(url)) {
                 Object urlObject = sessionMap.get(url);
-                Map<String, Object> preDataMap = gson.fromJson(gson.toJson(urlObject), type);
+                Map<String, Object> preDataMap = JSON.parseObject(JSON.toJSONString(urlObject), Map.class);
                 if (compareParams(nowDataMap, preDataMap) && compareTime(nowDataMap, preDataMap, annotation.interval())) {
                     return true;
                 }
@@ -86,7 +86,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
      * 判断两次间隔时间
      */
     private boolean compareTime(Map<String, Object> nowMap, Map<String, Object> preMap, int interval) {
-        log.info("{}====compareTime 执行了 ==== ", DateFormatUtils.format(new Date(), DEFAULT_DATE_FORMAT));
+        log.info("{}====compareTime 执行了 ===={}--{} ", DateFormatUtils.format(new Date(), DEFAULT_DATE_FORMAT), nowMap,preMap);
         long time1 = (Long) nowMap.get(REPEAT_TIME);
         long time2 = (Long) preMap.get(REPEAT_TIME);
         return (time1 - time2) < interval;

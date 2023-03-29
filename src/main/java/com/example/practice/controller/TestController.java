@@ -6,14 +6,20 @@ import com.example.practice.common.ajax.AjaxResult;
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ErrorCode;
 import com.example.practice.common.ajax.ResultUtils;
+import com.example.practice.common.annotation.RepeatSubmit;
 import com.example.practice.common.exception.BusinessException;
+import com.example.practice.common.mapstruct.basic.UserConvert;
 import com.example.practice.domain.User;
 import com.example.practice.domain.vo.ExportUserVO;
+import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.ServletOutputStream;
@@ -32,11 +38,11 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/test")
+@Api(tags = "TestController 测试")
 public class TestController {
 
     @Autowired
     private UserService userService;
-
 
     @GetMapping("/getByIds")
     public AjaxResult getUserByIds(Integer[] ids) {
@@ -91,5 +97,13 @@ public class TestController {
     public BasicResponse<List<User>> list() {
         List<User> userList = userService.list();
         return ResultUtils.success(userList);
+    }
+
+    @GetMapping("/getById")
+    @RepeatSubmit
+    @ApiOperation("测试自定义重复提交注解")
+    public BasicResponse<SafetyUser> getUserById(@RequestParam Long id) {
+        User user = userService.getById(id);
+        return ResultUtils.success(UserConvert.INSTANCE.toSafetyUser(user));
     }
 }
