@@ -2,6 +2,12 @@ package com.example.practice.controller;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.enums.CellDataTypeEnum;
+import com.alibaba.excel.metadata.data.ImageData;
+import com.alibaba.excel.metadata.data.WriteCellData;
+import com.alibaba.excel.util.DateUtils;
+import com.alibaba.excel.util.FileUtils;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.practice.common.ajax.AjaxResult;
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ErrorCode;
@@ -11,23 +17,25 @@ import com.example.practice.common.exception.BusinessException;
 import com.example.practice.common.mapstruct.basic.UserConvert;
 import com.example.practice.domain.User;
 import com.example.practice.domain.vo.ExportUserVO;
+import com.example.practice.domain.vo.ImageDemoData;
+import com.example.practice.domain.vo.RequestTestVO;
 import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.beans.SimpleBeanInfo;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -106,4 +114,86 @@ public class TestController {
         User user = userService.getById(id);
         return ResultUtils.success(UserConvert.INSTANCE.toSafetyUser(user));
     }
+
+    @PostMapping("/date")
+    @ApiOperation("测试时间格式转化")
+    public BasicResponse<?> dateFormat(@RequestBody RequestTestVO request) {
+
+        log.info("传入的参数：{}====={}", request.getId(),request.getExpectedEndTime());
+        User user = userService.getById(request.getId());
+        user.setUpdateTime(request.getExpectedEndTime());
+        userService.updateById(user);
+        return ResultUtils.success(user);
+    }
+
+
+    @GetMapping("/exportPicture")
+    @ApiOperation("测试导出包含图片")
+    public void exportPicture() throws Exception {
+        String format = DateUtils.format(new Date(), DateUtils.DATE_FORMAT_14);
+        String fileName = "D:\\tmp\\activiti\\test_export_picture_"+format+".xlsx";
+
+        // 设置响应头信息
+//        response.setContentType("application/vnd.ms-excel");
+//        response.setCharacterEncoding("utf-8");
+//        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+
+        // 创建图片文件并读取图片
+        String imagePath = "D:\\tmp\\activiti\\vacation0916.png";
+        try(InputStream inputStream = FileUtils.openInputStream(new File(imagePath))) {
+            List<ImageDemoData> list = new ArrayList<>();
+            ImageDemoData imageDemoData = new ImageDemoData();
+            imageDemoData.setFile(new File(imagePath));
+            imageDemoData.setId(1);
+            imageDemoData.setUserName("刘德意");
+            imageDemoData.setTime(new Date());
+            list.add(imageDemoData);
+
+            WriteCellData<Object> writeCellData = new WriteCellData<>();
+            // 放入了文字
+            writeCellData.setType(CellDataTypeEnum.STRING);
+            writeCellData.setStringValue("liudy23 is so handsome");
+            imageDemoData.setWriteCellDataFile(writeCellData);
+
+            // 可以放入多个图片
+            List<ImageData> imageDataList = new ArrayList<>();
+            ImageData imageData = new ImageData();
+            imageDataList.add(imageData);
+            writeCellData.setImageDataList(imageDataList);
+            // 放入2进制图片
+            imageData.setImage(FileUtils.readFileToByteArray(new File(imagePath)));
+            // 图片类型
+            imageData.setImageType(ImageData.ImageType.PICTURE_TYPE_PNG);
+            // 上 右 下 左 需要留空
+            // 这个类似于 css 的 margin
+            // 这里实测 不能设置太大 超过单元格原始大小后 打开会提示修复。暂时未找到很好的解法。
+            imageData.setTop(5);
+            imageData.setRight(0);
+            imageData.setBottom(5);
+            imageData.setLeft(0);
+
+//            // 放入第二个图片
+            imageData = new ImageData();
+            imageDataList.add(imageData);
+            writeCellData.setImageDataList(imageDataList);
+            imageData.setImage(FileUtils.readFileToByteArray(new File(imagePath)));
+            imageData.setImageType(ImageData.ImageType.PICTURE_TYPE_PNG);
+            imageData.setTop(5);
+            imageData.setRight(0);
+            imageData.setBottom(5);
+            imageData.setLeft(0);
+//            // 设置图片的位置 假设 现在目标 是 覆盖 当前单元格 和当前单元格右边的单元格
+            // 起点相对于当前单元格为0 当然可以不写
+            imageData.setRelativeFirstRowIndex(0);
+            imageData.setRelativeFirstColumnIndex(1);
+            imageData.setRelativeLastRowIndex(0);
+//            // 前面3个可以不写  下面这个需要写 也就是 结尾 需要相对当前单元格 往右移动一格
+//            // 也就是说 这个图片会覆盖当前单元格和 后面的那一格
+            imageData.setRelativeLastColumnIndex(1);
+
+            // 写入数据
+            EasyExcel.write(fileName, ImageDemoData.class).sheet().doWrite(list);
+        }
+    }
+
 }

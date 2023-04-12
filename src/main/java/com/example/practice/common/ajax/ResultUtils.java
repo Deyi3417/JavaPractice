@@ -14,6 +14,10 @@ public class ResultUtils {
         return new BasicResponse<>(HttpStatus.SUCCESS, "操作成功", data);
     }
 
+    public static BasicResponse success() {
+        return new BasicResponse<>(HttpStatus.SUCCESS, "操作成功", "");
+    }
+
     public static <T> BasicResponse<T> success(String message, T data) {
         return new BasicResponse<>(HttpStatus.SUCCESS, message, data);
     }
