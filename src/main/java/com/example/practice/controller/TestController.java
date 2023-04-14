@@ -139,57 +139,57 @@ public class TestController {
 //        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
 
         // 创建图片文件并读取图片
-        String imagePath = "D:\\tmp\\activiti\\vacation0916.png";
+        String imagePath = "D:\\tmp\\activiti\\liudy23.jpg";
         try(InputStream inputStream = FileUtils.openInputStream(new File(imagePath))) {
             List<ImageDemoData> list = new ArrayList<>();
             ImageDemoData imageDemoData = new ImageDemoData();
             imageDemoData.setFile(new File(imagePath));
             imageDemoData.setId(1);
-            imageDemoData.setUserName("刘德意");
+            imageDemoData.setUserName("刘德意--");
             imageDemoData.setTime(new Date());
             list.add(imageDemoData);
 
-            WriteCellData<Object> writeCellData = new WriteCellData<>();
-            // 放入了文字
-            writeCellData.setType(CellDataTypeEnum.STRING);
-            writeCellData.setStringValue("liudy23 is so handsome");
-            imageDemoData.setWriteCellDataFile(writeCellData);
-
-            // 可以放入多个图片
-            List<ImageData> imageDataList = new ArrayList<>();
-            ImageData imageData = new ImageData();
-            imageDataList.add(imageData);
-            writeCellData.setImageDataList(imageDataList);
-            // 放入2进制图片
-            imageData.setImage(FileUtils.readFileToByteArray(new File(imagePath)));
-            // 图片类型
-            imageData.setImageType(ImageData.ImageType.PICTURE_TYPE_PNG);
-            // 上 右 下 左 需要留空
-            // 这个类似于 css 的 margin
-            // 这里实测 不能设置太大 超过单元格原始大小后 打开会提示修复。暂时未找到很好的解法。
-            imageData.setTop(5);
-            imageData.setRight(0);
-            imageData.setBottom(5);
-            imageData.setLeft(0);
+//            WriteCellData<Object> writeCellData = new WriteCellData<>();
+//            // 放入了文字
+//            writeCellData.setType(CellDataTypeEnum.STRING);
+//            writeCellData.setStringValue("liudy23 is so handsome");
+//            imageDemoData.setWriteCellDataFile(writeCellData);
+//
+//            // 可以放入多个图片
+//            List<ImageData> imageDataList = new ArrayList<>();
+//            ImageData imageData = new ImageData();
+//            imageDataList.add(imageData);
+//            writeCellData.setImageDataList(imageDataList);
+//            // 放入2进制图片
+//            imageData.setImage(FileUtils.readFileToByteArray(new File(imagePath)));
+//            // 图片类型
+//            imageData.setImageType(ImageData.ImageType.PICTURE_TYPE_PNG);
+//            // 上 右 下 左 需要留空
+//            // 这个类似于 css 的 margin
+//            // 这里实测 不能设置太大 超过单元格原始大小后 打开会提示修复。暂时未找到很好的解法。
+//            imageData.setTop(5);
+//            imageData.setRight(0);
+//            imageData.setBottom(5);
+//            imageData.setLeft(0);
 
 //            // 放入第二个图片
-            imageData = new ImageData();
-            imageDataList.add(imageData);
-            writeCellData.setImageDataList(imageDataList);
-            imageData.setImage(FileUtils.readFileToByteArray(new File(imagePath)));
-            imageData.setImageType(ImageData.ImageType.PICTURE_TYPE_PNG);
-            imageData.setTop(5);
-            imageData.setRight(0);
-            imageData.setBottom(5);
-            imageData.setLeft(0);
-//            // 设置图片的位置 假设 现在目标 是 覆盖 当前单元格 和当前单元格右边的单元格
-            // 起点相对于当前单元格为0 当然可以不写
-            imageData.setRelativeFirstRowIndex(0);
-            imageData.setRelativeFirstColumnIndex(1);
-            imageData.setRelativeLastRowIndex(0);
-//            // 前面3个可以不写  下面这个需要写 也就是 结尾 需要相对当前单元格 往右移动一格
-//            // 也就是说 这个图片会覆盖当前单元格和 后面的那一格
-            imageData.setRelativeLastColumnIndex(1);
+//            imageData = new ImageData();
+//            imageDataList.add(imageData);
+//            writeCellData.setImageDataList(imageDataList);
+//            imageData.setImage(FileUtils.readFileToByteArray(new File(imagePath)));
+//            imageData.setImageType(ImageData.ImageType.PICTURE_TYPE_PNG);
+//            imageData.setTop(5);
+//            imageData.setRight(0);
+//            imageData.setBottom(5);
+//            imageData.setLeft(0);
+////            // 设置图片的位置 假设 现在目标 是 覆盖 当前单元格 和当前单元格右边的单元格
+//            // 起点相对于当前单元格为0 当然可以不写
+//            imageData.setRelativeFirstRowIndex(0);
+//            imageData.setRelativeFirstColumnIndex(1);
+//            imageData.setRelativeLastRowIndex(0);
+////            // 前面3个可以不写  下面这个需要写 也就是 结尾 需要相对当前单元格 往右移动一格
+////            // 也就是说 这个图片会覆盖当前单元格和 后面的那一格
+//            imageData.setRelativeLastColumnIndex(1);
 
             // 写入数据
             EasyExcel.write(fileName, ImageDemoData.class).sheet().doWrite(list);
