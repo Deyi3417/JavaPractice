@@ -29,3 +29,10 @@ mybatis-plus:
 
 swagger:
   enable: true
+
+
+basic:
+  #  这两种（下划线和横杠都可以解析成驼峰形式）
+  file_upload_path: D:\tmp\usercenter\tempFile
+  file-save-path: D:\tmp\usercenter\saveFile
+  address: hunan

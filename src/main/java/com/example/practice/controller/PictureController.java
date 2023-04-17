@@ -43,7 +43,7 @@ public class PictureController {
     public BasicResponse<?> getWatermark(HttpServletResponse response) throws IOException {
         String srcFile = "D:\\tmp\\activiti\\423167.jpg";
         String destFile = "D:\\tmp\\activiti\\water.jpg";
-        String watermark = "三一技术装备有限公司 liudy23 " + DateFormatUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss");
+        String watermark = "三一技术装备有限公司 liudy23 80048349 " + DateFormatUtils.format(new Date(),"yyyy-MM-dd");
         String awtWatermark = new String(watermark.getBytes("UTF-8"));
         response.reset();
         response.setContentType("image/png");

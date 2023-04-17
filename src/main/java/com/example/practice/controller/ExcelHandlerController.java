@@ -1,7 +1,11 @@
 package com.example.practice.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.example.practice.common.ajax.BasicResponse;
+import com.example.practice.common.ajax.ResultUtils;
 import com.example.practice.domain.dto.PlantUserInfo;
+import com.example.practice.domain.vo.ExportDataVO;
+import com.example.practice.service.ExcelHandlerService;
 import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +28,9 @@ import java.util.Map;
 @RequestMapping("/test")
 @Api(tags = "处理excel控制器")
 public class ExcelHandlerController {
+
+    @Resource
+    private ExcelHandlerService excelHandlerService;
 
     @GetMapping("/importExcel")
     @ApiOperation("导入星球用户数据-一次性读出来")
@@ -39,5 +48,13 @@ public class ExcelHandlerController {
                 // 返回每条数据的键值对 表示所在的列 和所在列的值
                 log.info("2.读取到数据:{}", gson.toJson(data));
             }
+    }
+
+    @GetMapping("batchExport")
+    @ApiOperation("分批次导出图片信息")
+    public BasicResponse<?> batchExport(HttpServletResponse response) {
+        List<ExportDataVO> data = excelHandlerService.getExcelData(1000);
+        excelHandlerService.exportDataTestThread(data);
+        return ResultUtils.success();
     }
 }

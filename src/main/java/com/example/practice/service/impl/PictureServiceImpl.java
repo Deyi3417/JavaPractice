@@ -60,7 +60,7 @@ public class PictureServiceImpl implements PictureService {
     @Override
     public void addWatermarkToImage(String srcFile, String destFile, String watermark, int x, int y, HttpServletResponse response) throws IOException {
         Font arial = new Font("微软雅黑", Font.BOLD, 70);
-        this.addWatermarkToImage(srcFile,destFile,watermark,arial, Color.BLACK, x,y,0.2f, response);
+        this.addWatermarkToImage(srcFile,destFile,watermark,arial, Color.RED, x,y,0.1f, response);
     }
 
     public void addWatermarkToImage(String srcFile, String destFile, String watermark, Font font, Color color, int x, int y, float alpha, HttpServletResponse response) throws IOException {
