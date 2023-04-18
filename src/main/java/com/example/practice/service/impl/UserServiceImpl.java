@@ -13,12 +13,14 @@ import com.example.practice.mapper.UserMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.description.method.MethodDescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
  * @createDate 2022-07-30 23:23:37
  */
 @Service
+@Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Resource
@@ -114,6 +117,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return true;
         }).collect(Collectors.toList());
         return UserConvert.INSTANCE.toSafetyUserList(collect);
+    }
+
+    @Override
+    public SafetyUser userLogin(String userAccount, String userPassword, HttpServletRequest request) {
+        // 查询用户是否存在
+        QueryWrapper<User> entity = new QueryWrapper<>();
+        entity.eq("user_account", userAccount);
+        entity.eq("user_password", userPassword);
+        User user = userMapper.selectOne(entity);
+        if (user == null) {
+            log.info("user login failed, userAccount cannot match userPassword");
+        }
+        return UserConvert.INSTANCE.toSafetyUser(user);
     }
 }
 

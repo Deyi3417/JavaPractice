@@ -5,6 +5,7 @@ import com.example.practice.domain.User;
 import com.example.practice.domain.vo.ExportUserVO;
 import com.example.practice.domain.vo.SafetyUser;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -67,4 +68,14 @@ public interface UserService extends IService<User> {
      * @return 用户信息
      */
     List<SafetyUser> searchUserByTags02(List<String> tagNameList);
+
+    /**
+     * 用户登录
+     *
+     * @param userAccount  用户账户
+     * @param userPassword 用户密码
+     * @param request      session
+     * @return 返回脱敏后的用户
+     */
+    SafetyUser userLogin(String userAccount, String userPassword, HttpServletRequest request);
 }

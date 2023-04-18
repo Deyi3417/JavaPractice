@@ -27,7 +27,7 @@ public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("{}====liudy23测试preHandle 执行了 ==== ", DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+        // log.info("{}====liudy23测试preHandle 执行了 ==== ", DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
             Method method = handlerMethod.getMethod();

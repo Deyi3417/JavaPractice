@@ -3,17 +3,17 @@ package com.example.practice.controller;
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ResultUtils;
 import com.example.practice.domain.User;
+import com.example.practice.domain.request.UserLoginRequest;
 import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -60,6 +60,20 @@ public class UserController {
     public BasicResponse<?> searchUsersByTags(@RequestParam List<String> tagNameList) {
         List<SafetyUser> safetyUsers = userService.searchUserByTags02(tagNameList);
         return ResultUtils.success(safetyUsers);
+    }
+
+    @PostMapping("/login")
+    @ApiOperation("用户登录")
+    public BasicResponse<SafetyUser> doLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
+        if (userLoginRequest == null) {
+            return null;
+        }
+        String userAccount = userLoginRequest.getUsername();
+        String userPassword = userLoginRequest.getPassword();
+        if (StringUtils.isAnyBlank(userAccount, userPassword)) {
+            return null;
+        }
+        return ResultUtils.success(userService.userLogin(userAccount, userPassword, request));
     }
 
 }
