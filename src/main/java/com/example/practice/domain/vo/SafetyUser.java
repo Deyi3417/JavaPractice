@@ -64,4 +64,7 @@ public class SafetyUser implements Serializable {
 
     @ApiModelProperty("个人简介")
     private String profile;
+
+    @ApiModelProperty("个人简介")
+    private String planetCode;
 }
