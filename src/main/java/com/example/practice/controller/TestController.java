@@ -7,6 +7,7 @@ import com.alibaba.excel.metadata.data.ImageData;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.util.DateUtils;
 import com.alibaba.excel.util.FileUtils;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.practice.common.ajax.AjaxResult;
 import com.example.practice.common.ajax.BasicResponse;
@@ -16,10 +17,12 @@ import com.example.practice.common.annotation.RepeatSubmit;
 import com.example.practice.common.exception.BusinessException;
 import com.example.practice.common.mapstruct.basic.UserConvert;
 import com.example.practice.domain.User;
+import com.example.practice.domain.request.ExtendParams;
 import com.example.practice.domain.vo.ExportUserVO;
 import com.example.practice.domain.vo.ImageDemoData;
 import com.example.practice.domain.vo.RequestTestVO;
 import com.example.practice.domain.vo.SafetyUser;
+import com.example.practice.service.FileHandlerService;
 import com.example.practice.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.beans.SimpleBeanInfo;
@@ -49,8 +53,20 @@ import java.util.List;
 @Api(tags = "TestController 测试")
 public class TestController {
 
+    public static final String PDF_FILE_1 = "D:\\tmp\\usercenter\\saveFile\\2023-03-17\\liudy23.pdf";
+
     @Autowired
     private UserService userService;
+
+    @Resource
+    private FileHandlerService fileHandlerService;
+
+    @GetMapping("fileToImg")
+    private void fileToImg(HttpServletResponse response) {
+        File file = new File(PDF_FILE_1);
+        String fileType = PDF_FILE_1.substring(PDF_FILE_1.lastIndexOf(".") + 1);
+        fileHandlerService.fileToImg(file, response, fileType);
+    }
 
     @GetMapping("/getByIds")
     public AjaxResult getUserByIds(Integer[] ids) {
@@ -124,6 +140,13 @@ public class TestController {
         user.setUpdateTime(request.getExpectedEndTime());
         userService.updateById(user);
         return ResultUtils.success(user);
+    }
+
+    @PostMapping("/paramsExtends")
+    @ApiOperation("参数参数学习")
+    public BasicResponse<?> extendsParams(@RequestBody ExtendParams params) {
+        log.info("请求参数：{}", JSON.toJSONString(params));
+        return ResultUtils.success(JSON.toJSONString(params));
     }
 
 
