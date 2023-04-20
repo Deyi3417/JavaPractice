@@ -1,6 +1,10 @@
 package com.example.practice.service.impl;
 
 import com.example.practice.service.PictureService;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -10,6 +14,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author : HP
@@ -86,18 +92,36 @@ public class PictureServiceImpl implements PictureService {
         // 设置旋转角度和旋转中心
         g2d.rotate(Math.toRadians(325), centerX, centerY);
 
-//        int imageWidth = image.getWidth();
-//        int imageHeight = image.getHeight();
-//        int stringWidth = g2d.getFontMetrics().stringWidth(watermark);
-//        int stringHeight = g2d.getFontMetrics().getHeight();
-//        x = (imageWidth - stringWidth) / 2;
-//        y = (imageHeight - stringHeight) / 2;
-        // 倾斜角度
-//        g2d.rotate(Math.toRadians(315),x,y);
         g2d.drawString(watermark, x, y);
         ImageIO.write(image, "jpg",os);
         g2d.dispose();
         os.close();
+    }
+
+    @Override
+    public void generateQRCodeImage(String text, HttpServletResponse response) {
+        this.generateQRCodeImage(text,50,50, response);
+    }
+
+    @Override
+    public void generateQRCodeImage(String text, int width, int height, HttpServletResponse response) {
+        response.setCharacterEncoding("UTF-8");
+        OutputStream os =  null;
+        try {
+            // 创建二维码对象
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            byte[] contentBytes = text.getBytes(StandardCharsets.UTF_8);
+            BitMatrix bitMatrix  = qrCodeWriter.encode(new String(contentBytes,"ISO-8859-1"), BarcodeFormat.QR_CODE, width, height);
+            BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+            // 将二维码图片写入response对象
+            response.setContentType("image/png");
+            os = response.getOutputStream();
+            ImageIO.write(bufferedImage,"png", os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

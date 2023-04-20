@@ -11,4 +11,8 @@ public interface PictureService {
     void addWatermarkToImage(String srcFile, String destFile, String watermark, int x, int y) throws IOException;
 
     void addWatermarkToImage(String srcFile, String destFile, String watermark, int x, int y, HttpServletResponse response) throws IOException;
+
+    void generateQRCodeImage(String text, HttpServletResponse response);
+
+    void generateQRCodeImage(String text, int width, int height, HttpServletResponse response);
 }
