@@ -12,6 +12,7 @@ import java.io.File;
 public class WordConvertToImg extends FileConvert {
     @Override
     public BufferedImage covertToImgStream(File file) {
+        
         return null;
     }
 }
