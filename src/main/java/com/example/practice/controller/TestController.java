@@ -1,14 +1,9 @@
 package com.example.practice.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.enums.CellDataTypeEnum;
-import com.alibaba.excel.metadata.data.ImageData;
-import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.util.DateUtils;
 import com.alibaba.excel.util.FileUtils;
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.practice.common.ajax.AjaxResult;
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ErrorCode;
@@ -16,6 +11,7 @@ import com.example.practice.common.ajax.ResultUtils;
 import com.example.practice.common.annotation.RepeatSubmit;
 import com.example.practice.common.exception.BusinessException;
 import com.example.practice.common.mapstruct.basic.UserConvert;
+import com.example.practice.domain.Tag;
 import com.example.practice.domain.User;
 import com.example.practice.domain.request.ExtendParams;
 import com.example.practice.domain.vo.ExportUserVO;
@@ -23,6 +19,7 @@ import com.example.practice.domain.vo.ImageDemoData;
 import com.example.practice.domain.vo.RequestTestVO;
 import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.service.FileHandlerService;
+import com.example.practice.service.TagService;
 import com.example.practice.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,7 +30,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.beans.SimpleBeanInfo;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,6 +56,9 @@ public class TestController {
 
     @Resource
     private FileHandlerService fileHandlerService;
+
+    @Resource
+    private TagService tagService;
 
     @GetMapping("fileToImg")
     private void fileToImg(HttpServletResponse response) {
@@ -135,7 +134,7 @@ public class TestController {
     @ApiOperation("测试时间格式转化")
     public BasicResponse<?> dateFormat(@RequestBody RequestTestVO request) {
 
-        log.info("传入的参数：{}====={}", request.getId(),request.getExpectedEndTime());
+        log.info("传入的参数：{}====={}", request.getId(), request.getExpectedEndTime());
         User user = userService.getById(request.getId());
         user.setUpdateTime(request.getExpectedEndTime());
         userService.updateById(user);
@@ -154,7 +153,7 @@ public class TestController {
     @ApiOperation("测试导出包含图片")
     public void exportPicture() throws Exception {
         String format = DateUtils.format(new Date(), DateUtils.DATE_FORMAT_14);
-        String fileName = "D:\\tmp\\activiti\\test_export_picture_"+format+".xlsx";
+        String fileName = "D:\\tmp\\activiti\\test_export_picture_" + format + ".xlsx";
 
         // 设置响应头信息
 //        response.setContentType("application/vnd.ms-excel");
@@ -163,7 +162,7 @@ public class TestController {
 
         // 创建图片文件并读取图片
         String imagePath = "D:\\tmp\\activiti\\liudy23.jpg";
-        try(InputStream inputStream = FileUtils.openInputStream(new File(imagePath))) {
+        try (InputStream inputStream = FileUtils.openInputStream(new File(imagePath))) {
             List<ImageDemoData> list = new ArrayList<>();
             ImageDemoData imageDemoData = new ImageDemoData();
             imageDemoData.setFile(new File(imagePath));
@@ -217,6 +216,29 @@ public class TestController {
             // 写入数据
             EasyExcel.write(fileName, ImageDemoData.class).sheet().doWrite(list);
         }
+    }
+
+    @PostMapping("borrow")
+    @ApiOperation("设备借用")
+    public BasicResponse<?> borrowDevices(@RequestBody List<Integer> ids) {
+        log.info("接收参数：{}", JSON.toJSONString(ids));
+        System.out.println("接收参数： " + JSON.toJSONString(ids));
+//        QueryWrapper<User> query = new QueryWrapper<>();
+//        query.in("id",ids).eq("is_delete",0);
+        List<User> users = userService.listByIds(ids);
+        return ResultUtils.success(users);
+    }
+
+    @PostMapping("/insert")
+    @ApiOperation("插入标签")
+    public BasicResponse<?> insetUser(@RequestBody Tag tag) {
+        // 插进数据库之后，就会生成主键id
+        boolean save = tagService.saveOrUpdate(tag);
+        if (save) {
+            log.info("展示标签：" + tag);
+            return ResultUtils.success();
+        }
+        return ResultUtils.error("插入失败");
     }
 
 }
