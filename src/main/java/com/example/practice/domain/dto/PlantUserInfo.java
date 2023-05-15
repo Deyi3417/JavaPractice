@@ -2,6 +2,7 @@ package com.example.practice.domain.dto;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @data : 2023/3/5
  */
 @Data
+@ApiModel(value = "星球用户信息")
 public class PlantUserInfo implements Serializable {
 
     private static final long serialVersionUID = 6552761453652690156L;

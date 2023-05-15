@@ -9,6 +9,7 @@ import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ErrorCode;
 import com.example.practice.common.ajax.ResultUtils;
 import com.example.practice.common.annotation.RepeatSubmit;
+import com.example.practice.common.config.properties.BasicProperties;
 import com.example.practice.common.exception.BusinessException;
 import com.example.practice.common.mapstruct.basic.UserConvert;
 import com.example.practice.domain.Tag;
@@ -21,6 +22,7 @@ import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.service.FileHandlerService;
 import com.example.practice.service.TagService;
 import com.example.practice.service.UserService;
+import com.example.practice.util.FileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author 刘德意
@@ -59,6 +62,9 @@ public class TestController {
 
     @Resource
     private TagService tagService;
+
+    @Resource
+    private BasicProperties basicProperties;
 
     @GetMapping("fileToImg")
     private void fileToImg(HttpServletResponse response) {
@@ -239,6 +245,37 @@ public class TestController {
             return ResultUtils.success();
         }
         return ResultUtils.error("插入失败");
+    }
+
+    @GetMapping("/isIpWhite")
+    @ApiOperation("ip白名单测试")
+    public BasicResponse<?> isIpWhite(@RequestParam(value = "ip") String ip) {
+        Set<String> ipList = FileUtil.loadIpWhiteList(basicProperties.getFileIpWhiteFile());
+        if (!ipList.contains(ip)) {
+            return ResultUtils.error("您不在IP白名单，无法获取资源");
+        }
+        System.out.println(ipList);
+        log.info("ip白名单：{}", ipList);
+        return ResultUtils.success(ipList);
+    }
+
+    @GetMapping("/redirect")
+    @ApiOperation("重定向测试")
+    public BasicResponse<List<User>> redirect(HttpServletResponse response, Long userId) throws IOException {
+        // 需要注意的是，使用 response.sendRedirect() 方法时，必须确保在调用该方法之前，不要向客户端发送任何数据，否则会抛出 IllegalStateException 异常。
+        User user = userService.getById(userId);
+        user.setUsername("北暮城南");
+        userService.updateById(user);
+        response.sendRedirect("http://localhost:9080/api/test/target");
+        List<User> userList = userService.getUserList();
+        return ResultUtils.success(userList);
+    }
+
+    @GetMapping("/target")
+    @ApiOperation("重定向目标地址-获取数据")
+    public BasicResponse<List<User>> redirect() {
+        List<User> userList = userService.getUserList();
+        return ResultUtils.success(userList);
     }
 
 }

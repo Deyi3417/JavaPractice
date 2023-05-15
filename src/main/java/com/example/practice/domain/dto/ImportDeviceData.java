@@ -1,6 +1,7 @@
 package com.example.practice.domain.dto;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
+@ApiModel(value = "导入数据表头字段")
 public class ImportDeviceData implements Serializable {
 
     private static final long serialVersionUID = -5207056389909876088L;

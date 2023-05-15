@@ -1,5 +1,6 @@
 package com.example.practice.service.impl;
 
+import com.alibaba.excel.util.DateUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.practice.common.ajax.ErrorCode;
@@ -8,14 +9,15 @@ import com.example.practice.common.mapstruct.basic.UserConvert;
 import com.example.practice.domain.User;
 import com.example.practice.domain.vo.ExportUserVO;
 import com.example.practice.domain.vo.SafetyUser;
-import com.example.practice.service.UserService;
 import com.example.practice.mapper.UserMapper;
+import com.example.practice.service.UserService;
+import com.example.practice.util.FileUtil;
+import com.example.practice.util.RedisUtil;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.description.method.MethodDescription;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -31,14 +33,26 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
+@EnableScheduling
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private RedisUtil redisUtil;
+
+    private static final String USER_LIST_KEY = "user:suyao";
+
     @Override
     public List<User> getUserList() {
-        return this.baseMapper.getUserList();
+
+        List<User> userList = (List<User>) redisUtil.getHashValue(USER_LIST_KEY, "all");
+        if (userList == null) {
+            userList = this.list();
+            redisUtil.setHashValue(USER_LIST_KEY,"all", userList);
+        }
+        return userList;
     }
 
     @Override
@@ -130,6 +144,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             log.info("user login failed, userAccount cannot match userPassword");
         }
         return UserConvert.INSTANCE.toSafetyUser(user);
+    }
+
+    @Scheduled(cron = "0/2 * * * * ?")
+    public void updateCache() {
+        log.info("liudy23 is so handsoem==={}",DateUtils.format(new Date(), DateUtils.DATE_FORMAT_19));
+//        List<User> userList = userMapper.getUserList();
+//        redisTemplate.opsForHash().put(USER_LIST_KEY, "all", userList);
     }
 }
 

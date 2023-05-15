@@ -11,6 +11,18 @@ spring:
     username: root
     password: root
 
+  # Redis configuration
+  redis:
+    host: localhost
+    port: 6379
+    password: #123456
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 100ms
+
   session:
     timeout: 86400
   # swagger configuration information
@@ -35,4 +47,5 @@ basic:
   #  这两种（下划线和横杠都可以解析成驼峰形式）
   file_upload_path: D:\tmp\usercenter\tempFile
   file-save-path: D:\tmp\usercenter\saveFile
+  file_ipWhite_file: D:\tmp\ipWhite\ipwhitelist.txt
   address: hunan

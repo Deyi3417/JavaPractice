@@ -36,4 +36,7 @@ public class BasicProperties implements Serializable {
 
     @ApiModelProperty(name = "address", value = "配置文件中的 address")
     private String address;
+
+    @ApiModelProperty(name = "fileIpWhiteFile", value = "IP白名单位置")
+    private String fileIpWhiteFile;
 }
