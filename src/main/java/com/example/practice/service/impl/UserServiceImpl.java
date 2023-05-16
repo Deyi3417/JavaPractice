@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Slf4j
-@EnableScheduling
+//@EnableScheduling
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Resource

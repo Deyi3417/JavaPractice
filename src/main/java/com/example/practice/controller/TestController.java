@@ -53,6 +53,7 @@ import java.util.Set;
 public class TestController {
 
     public static final String PDF_FILE_1 = "D:\\tmp\\usercenter\\saveFile\\2023-03-17\\liudy23.pdf";
+    public static final String PDF_FILE_2 = "D:\\tmp\\usercenter\\saveFile\\2023-03-17\\liudy23.docx";
 
     @Autowired
     private UserService userService;
@@ -67,9 +68,10 @@ public class TestController {
     private BasicProperties basicProperties;
 
     @GetMapping("fileToImg")
-    private void fileToImg(HttpServletResponse response) {
-        File file = new File(PDF_FILE_1);
-        String fileType = PDF_FILE_1.substring(PDF_FILE_1.lastIndexOf(".") + 1);
+    @ApiOperation("测试文件转图片进行展示")
+    private void fileToImg(HttpServletResponse response, @RequestParam("filePath") String filePath) {
+        File file = new File(filePath);
+        String fileType = filePath.substring(filePath.lastIndexOf(".") + 1);
         fileHandlerService.fileToImg(file, response, fileType);
     }
 

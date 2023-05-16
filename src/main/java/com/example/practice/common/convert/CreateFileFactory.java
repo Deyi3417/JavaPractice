@@ -1,6 +1,7 @@
 package com.example.practice.common.convert;
 
 import com.example.practice.common.convert.concrete.PdfConvertToImg;
+import com.example.practice.common.convert.concrete.WordConvertToImg;
 
 /**
  * @author : HP
@@ -12,7 +13,7 @@ public class CreateFileFactory implements FileFactory{
         if ("pdf".equals(type)) {
             return new PdfConvertToImg();
         } else if ("docx".equals(type)) {
-            return null;
+            return new WordConvertToImg();
         } else {
             throw new IllegalArgumentException("Invalid File type");
         }
