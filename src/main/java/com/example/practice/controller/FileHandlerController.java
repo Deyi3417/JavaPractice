@@ -1,10 +1,12 @@
 package com.example.practice.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ResultUtils;
+import com.example.practice.common.config.properties.BasicProperties;
 import com.example.practice.domain.request.DeviceInfo;
+import com.example.practice.service.FileHandlerService;
 import com.example.practice.service.PictureService;
+import com.example.practice.util.FileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -26,11 +29,17 @@ import java.util.Date;
 @RestController
 @Slf4j
 @RequestMapping("/picture")
-@Api(tags = "文件控制器")
-public class PictureController {
+@Api(tags = "文件处理控制器")
+public class FileHandlerController {
 
     @Resource
     private PictureService pictureService;
+
+    @Resource
+    private FileHandlerService fileHandlerService;
+
+    @Resource
+    private BasicProperties basicProperties;
 
     @GetMapping("/watermark")
     @ApiOperation("给文件添加水印")
@@ -54,11 +63,30 @@ public class PictureController {
         return ResultUtils.success();
     }
 
-    /**
-     *
-     * @param response
-     * @return
-     */
+    @GetMapping("/wordToPdf")
+    @ApiOperation("测试word转pdf")
+    private void wordToPDF(HttpServletResponse response, @RequestParam("filePath") String filePath) {
+        log.info("====参数===={}", basicProperties.getFileTempPdf());
+        File file = new File(filePath);
+        FileUtil.wordToPdf(file);
+    }
+
+    @GetMapping("/asposeWordToPDF")
+    @ApiOperation("测试word转pdf-aspose")
+    private void asposeWordToPDF(HttpServletResponse response, @RequestParam("filePath") String filePath) {
+        FileUtil.asposeWordToPDF(filePath);
+    }
+
+    @GetMapping("fileToImg")
+    @ApiOperation("测试文件转图片进行展示")
+    private void fileToImg(HttpServletResponse response, @RequestParam("filePath") String filePath) {
+        File file = new File(filePath);
+        String fileType = filePath.substring(filePath.lastIndexOf(".") + 1);
+        fileHandlerService.fileToImg(file, response, fileType);
+    }
+
+
+
     @GetMapping("/qrCode")
     @ApiOperation("生成二维码在前端页面显示")
     public void qrCode(HttpServletResponse response) {

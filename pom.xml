@@ -182,6 +182,13 @@
             <version>2.0.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-words</artifactId>
+            <version>19.5.0</version>
+            <scope>system</scope>
+            <systemPath>D:/az/maven/repository/com/aspose/aspose-words-19.5jdk.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>

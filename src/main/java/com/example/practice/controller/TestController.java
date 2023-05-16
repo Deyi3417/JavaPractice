@@ -67,7 +67,7 @@ public class TestController {
     @Resource
     private BasicProperties basicProperties;
 
-    @GetMapping("fileToImg")
+    @GetMapping("/fileToImg")
     @ApiOperation("测试文件转图片进行展示")
     private void fileToImg(HttpServletResponse response, @RequestParam("filePath") String filePath) {
         File file = new File(filePath);

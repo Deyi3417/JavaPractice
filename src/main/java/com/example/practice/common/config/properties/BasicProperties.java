@@ -39,4 +39,7 @@ public class BasicProperties implements Serializable {
 
     @ApiModelProperty(name = "fileIpWhiteFile", value = "IP白名单位置")
     private String fileIpWhiteFile;
+
+    @ApiModelProperty(name = "fileTempPdf", value = "临时保存的pdf文件地址")
+    private String fileTempPdf;
 }

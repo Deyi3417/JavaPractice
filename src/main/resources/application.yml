@@ -48,4 +48,5 @@ basic:
   file_upload_path: D:\tmp\usercenter\tempFile
   file-save-path: D:\tmp\usercenter\saveFile
   file_ipWhite_file: D:\tmp\ipWhite\ipwhitelist.txt
+  file-temp-pdf: D:\tmp\usercenter\tempFile\pdf_file\Temp.pdf
   address: hunan
