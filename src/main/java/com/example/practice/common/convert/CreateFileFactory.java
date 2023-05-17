@@ -24,6 +24,8 @@ public class CreateFileFactory implements FileFactory{
             return pdfConvertToImg;
         } else if ("docx".equals(type) || "doc".equals(type)) {
             return wordConvertToImg;
+        } else if ("txt".equals(type)) {
+            return pdfConvertToImg;
         } else {
             throw new IllegalArgumentException("Invalid File type");
         }

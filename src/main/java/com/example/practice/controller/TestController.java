@@ -280,4 +280,12 @@ public class TestController {
         return ResultUtils.success(userList);
     }
 
+    @GetMapping("/text")
+    @ApiOperation(".text文件预览")
+    public BasicResponse<?> reviewText(HttpServletResponse response, @RequestParam String filePath) {
+        fileHandlerService.reviewTextFile(response, new File(filePath));
+        return ResultUtils.success();
+    }
+
+
 }

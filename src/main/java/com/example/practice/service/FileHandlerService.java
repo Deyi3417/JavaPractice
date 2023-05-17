@@ -18,18 +18,5 @@ public interface FileHandlerService {
      */
     void fileToImg(File file, HttpServletResponse response, String fileType);
 
-    /**
-     * word转pdf保存到线上
-     *
-     * @param response
-     * @param file
-     */
-    void wordToPdf(HttpServletResponse response, File file);
-
-    /**
-     * word转pdf保存到本地
-     *
-     * @param file
-     */
-    void wordToPdf(File file);
+    void reviewTextFile(HttpServletResponse response, File file);
 }
