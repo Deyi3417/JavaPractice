@@ -133,11 +133,26 @@ public class FileUtil {
     /**
      * word文档（.doc和.docx文件）-转pdf
      *
-     * @param wordFile 输入的文件路径
+     * @param wordFilePath 输入的文件路径
      */
-    public static void asposeWordToPDF(String wordFile) {
+    public static void asposeWordToPDF(String wordFilePath) {
         try {
-            Document wordDocument = new Document(wordFile);
+            Document wordDocument = new Document(wordFilePath);
+            PdfSaveOptions pso = new PdfSaveOptions();
+            wordDocument.save(FILE_TEMP_PDF, pso);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * word文档（.doc和.docx文件）-转pdf
+     *
+     * @param file 输入的文件file
+     */
+    public static void asposeWordToPDF(File file) {
+        try {
+            Document wordDocument = new Document(new FileInputStream(file));
             PdfSaveOptions pso = new PdfSaveOptions();
             wordDocument.save(FILE_TEMP_PDF, pso);
         } catch (Exception e) {

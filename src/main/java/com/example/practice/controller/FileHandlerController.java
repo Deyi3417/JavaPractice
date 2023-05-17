@@ -74,7 +74,8 @@ public class FileHandlerController {
     @GetMapping("/asposeWordToPDF")
     @ApiOperation("测试word转pdf-aspose")
     private void asposeWordToPDF(HttpServletResponse response, @RequestParam("filePath") String filePath) {
-        FileUtil.asposeWordToPDF(filePath);
+        File file = new File(filePath);
+        FileUtil.asposeWordToPDF(file);
     }
 
     @GetMapping("fileToImg")
