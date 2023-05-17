@@ -22,7 +22,7 @@ import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.service.FileHandlerService;
 import com.example.practice.service.TagService;
 import com.example.practice.service.UserService;
-import com.example.practice.util.FileUtil;
+import com.example.practice.utils.FileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

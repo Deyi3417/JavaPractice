@@ -6,7 +6,7 @@ import com.example.practice.common.config.properties.BasicProperties;
 import com.example.practice.domain.request.DeviceInfo;
 import com.example.practice.service.FileHandlerService;
 import com.example.practice.service.PictureService;
-import com.example.practice.util.FileUtil;
+import com.example.practice.utils.FileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

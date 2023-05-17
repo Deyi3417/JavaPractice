@@ -1,13 +1,11 @@
 package com.example.practice.service.impl;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.util.DateUtils;
-import com.alibaba.excel.write.metadata.WriteSheet;
 import com.example.practice.common.config.properties.BasicProperties;
 import com.example.practice.domain.vo.ExportDataVO;
 import com.example.practice.service.ExcelHandlerService;
-import com.example.practice.util.FileUtil;
+import com.example.practice.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.stereotype.Service;

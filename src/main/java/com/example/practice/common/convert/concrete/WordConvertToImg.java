@@ -2,21 +2,14 @@ package com.example.practice.common.convert.concrete;
 
 import com.example.practice.common.config.properties.BasicProperties;
 import com.example.practice.common.convert.FileConvert;
-import com.example.practice.service.FileHandlerService;
-import com.example.practice.util.FileUtil;
-import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
-import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
+import com.example.practice.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 /**
  * @author : HP
@@ -36,7 +29,7 @@ public class WordConvertToImg extends FileConvert {
     @Override
     public BufferedImage covertToImgStream(File file) {
         try {
-            FileUtil.wordToPdf(file);
+            FileUtil.asposeWordToPDF(file);
             File tempFile = new File(basicProperties.getFileTempPdf());
             return pdfConvertToImg.covertToImgStream(tempFile);
         } catch (Exception e) {

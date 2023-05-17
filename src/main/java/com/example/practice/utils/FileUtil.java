@@ -1,4 +1,4 @@
-package com.example.practice.util;
+package com.example.practice.utils;
 
 import com.aspose.words.Document;
 import com.aspose.words.PdfSaveOptions;
@@ -155,6 +155,7 @@ public class FileUtil {
             Document wordDocument = new Document(new FileInputStream(file));
             PdfSaveOptions pso = new PdfSaveOptions();
             wordDocument.save(FILE_TEMP_PDF, pso);
+            log.info("使用aspose方案将word转pdf成功===={}", DateUtil.getDefaultTime());
         } catch (Exception e) {
             e.printStackTrace();
         }
