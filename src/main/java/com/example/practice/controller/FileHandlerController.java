@@ -75,7 +75,24 @@ public class FileHandlerController {
     @ApiOperation("测试word转pdf-aspose")
     private void asposeWordToPDF(HttpServletResponse response, @RequestParam("filePath") String filePath) {
         File file = new File(filePath);
-        FileUtil.asposeWordToPDF(file);
+        String outputFilePath = "D:\\tmp\\usercenter\\tempFile\\pdf_file\\outputWord.pdf";
+        FileUtil.asposeWordToPDF(file, outputFilePath);
+    }
+
+    @GetMapping("/asposePPTToPDF")
+    @ApiOperation("测试ppt转pdf-aspose")
+    private void asposePPTToPDF(HttpServletResponse response, @RequestParam("filePath") String filePath) {
+        File file = new File(filePath);
+        String outputFilePath = "D:\\tmp\\usercenter\\tempFile\\pdf_file\\outputPpt.pdf";
+        FileUtil.asposePptToPdf(file, outputFilePath);
+    }
+
+    @GetMapping("/asposeExcelToPDF")
+    @ApiOperation("测试excel转pdf-aspose")
+    private void asposeExcelToPDF(HttpServletResponse response, @RequestParam("filePath") String filePath) {
+        File file = new File(filePath);
+        String outputFilePath = "D:\\tmp\\usercenter\\tempFile\\pdf_file\\outputExcel.pdf";
+        FileUtil.asposeExcelToPdf(file, outputFilePath);
     }
 
     @GetMapping("fileToImg")
@@ -85,9 +102,6 @@ public class FileHandlerController {
         String fileType = filePath.substring(filePath.lastIndexOf(".") + 1);
         fileHandlerService.fileToImg(file, response, fileType);
     }
-
-
-
 
 
     @GetMapping("/qrCode")

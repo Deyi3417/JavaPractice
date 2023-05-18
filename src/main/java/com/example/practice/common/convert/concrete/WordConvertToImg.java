@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
+ * Word文件转图片流
+ *
  * @author : HP
  * @date : 2023/4/18
  */
@@ -19,19 +21,14 @@ import java.io.File;
 @Service
 public class WordConvertToImg extends FileConvert {
 
-    @Autowired
-    private PdfConvertToImg pdfConvertToImg;
+    private static final String OUTPUT_WORD_TO_PDF = "D:\\tmp\\usercenter\\tempFile\\pdf_file\\outputWordTemp.pdf";
 
-    @Resource
-    private BasicProperties basicProperties;
-
-    private static final String savePath = "D:\\tmp\\usercenter\\saveFile\\2023-03-17\\testTemp.pdf";
     @Override
     public BufferedImage covertToImgStream(File file) {
         try {
-            FileUtil.asposeWordToPDF(file);
-            File tempFile = new File(basicProperties.getFileTempPdf());
-            return pdfConvertToImg.covertToImgStream(tempFile);
+            FileUtil.asposeWordToPDF(file, OUTPUT_WORD_TO_PDF);
+            File tempFile = new File(OUTPUT_WORD_TO_PDF);
+            return FileUtil.getImagStream(tempFile);
         } catch (Exception e) {
             log.info("covertToImgStream is error: {}", e.getMessage());
             e.printStackTrace();

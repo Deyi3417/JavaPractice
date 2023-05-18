@@ -1,6 +1,7 @@
 package com.example.practice.service.impl;
 
-import com.aspose.words.ImageType;
+import com.aspose.slides.Presentation;
+import com.aspose.words.SaveFormat;
 import com.example.practice.common.config.properties.BasicProperties;
 import com.example.practice.common.convert.CreateFileFactory;
 import com.example.practice.common.convert.FileConvert;
@@ -9,7 +10,6 @@ import com.example.practice.service.FileHandlerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MimeTypeUtils;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -17,10 +17,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
 
 /**
  * 文件处理实现类

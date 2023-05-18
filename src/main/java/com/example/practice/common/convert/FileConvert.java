@@ -10,7 +10,7 @@ import java.io.File;
 public abstract class FileConvert {
 
     /**
-     * pdf转图片流
+     * 文件转图片流
      *
      * @param file 输入文件
      * @return

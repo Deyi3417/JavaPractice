@@ -15,10 +15,12 @@ import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 /**
+ * text文件转图片流
+ *
  * @author : HP
  * @date : 2023/5/17
  */
-@Service
+@Component
 public class TextConvertToImg extends FileConvert {
 
     private static final String FILE_SAVE_PATH = "D:\\tmp\\usercenter\\tempFile\\png_file\\liudy23.png";
@@ -28,9 +30,9 @@ public class TextConvertToImg extends FileConvert {
         try {
             Path path = Paths.get(file.getPath());
             String textString = Files.lines(path).collect(Collectors.joining("\n"));
-            System.out.println("输出文本" + textString);
             BufferedImage bufferedImage = convertTextToImage(textString);
-            ImageIO.write(bufferedImage, "png", new File(FILE_SAVE_PATH));
+            return bufferedImage;
+//            ImageIO.write(bufferedImage, "png", new File(FILE_SAVE_PATH));
         } catch (IOException e) {
             e.printStackTrace();
         }
