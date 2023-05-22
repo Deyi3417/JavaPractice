@@ -2,9 +2,7 @@ package com.example.practice.common.convert.concrete;
 
 import com.example.practice.common.convert.FileConvert;
 import com.example.practice.utils.FileUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
