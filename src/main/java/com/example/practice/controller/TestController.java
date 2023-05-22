@@ -9,6 +9,7 @@ import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ErrorCode;
 import com.example.practice.common.ajax.ResultUtils;
 import com.example.practice.common.annotation.RepeatSubmit;
+import com.example.practice.common.annotation.WhitelistedIP;
 import com.example.practice.common.config.properties.BasicProperties;
 import com.example.practice.common.exception.BusinessException;
 import com.example.practice.common.mapstruct.basic.UserConvert;
@@ -133,6 +134,7 @@ public class TestController {
     @GetMapping("/getById")
     @RepeatSubmit
     @ApiOperation("测试自定义重复提交注解")
+    @WhitelistedIP
     public BasicResponse<SafetyUser> getUserById(@RequestParam Long id) {
         User user = userService.getById(id);
         return ResultUtils.success(UserConvert.INSTANCE.toSafetyUser(user));

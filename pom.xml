@@ -208,6 +208,13 @@
             <version>23.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+
 <!--        <dependency>-->
 <!--            <groupId>com.aspose</groupId>-->
 <!--            <artifactId>aspose-slides</artifactId>-->
