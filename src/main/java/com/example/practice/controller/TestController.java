@@ -23,6 +23,7 @@ import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.service.FileHandlerService;
 import com.example.practice.service.TagService;
 import com.example.practice.service.UserService;
+import com.example.practice.utils.DateUtil;
 import com.example.practice.utils.FileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -136,6 +137,9 @@ public class TestController {
     @ApiOperation("测试自定义重复提交注解")
     @WhitelistedIP
     public BasicResponse<SafetyUser> getUserById(@RequestParam Long id) {
+        log.info("这段代码执行了，可以记录到日志文件里面吗？\n are you ok");
+        Set<String> strings = FileUtil.loadIpWhiteList("D:\\log\\ipWhite.txt");
+        log.info("===代码执行了===时间：{}，\n 读取到的数据：{}", DateUtil.getDefaultTime(), strings);
         User user = userService.getById(id);
         return ResultUtils.success(UserConvert.INSTANCE.toSafetyUser(user));
     }

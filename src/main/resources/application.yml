@@ -42,6 +42,21 @@ mybatis-plus:
 swagger:
   enable: true
 
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS}  %clr(%-5level){green} %clr(${pid}){magenta} --- [%20thread] %clr(%logger{42}){cyan} : %clr(%msg%n){yellow}"
+  level:
+    root: INFO
+  file:
+    path: d:/log/history
+    name: d:/log/recordLog.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: "${logging.file.path}/%d{yyyy-MM-dd}/sysLog-%d{yyyy-MM-dd-HHmmss}-%i.log"
+      max-file-size: 50KB
+      max-history: 7
+      total-size-cap: 100MB
+
 
 basic:
   #  这两种（下划线和横杠都可以解析成驼峰形式）

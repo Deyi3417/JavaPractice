@@ -43,7 +43,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
     @Override
     public boolean isRepeatSubmit(HttpServletRequest request, RepeatSubmit annotation) {
 
-        log.info("{}==== SameUrlDataInterceptor.java 执行了 ==== ", DateFormatUtils.format(new Date(), DEFAULT_DATE_FORMAT));
+//        log.info("{}==== SameUrlDataInterceptor.java 执行了 ==== ", DateFormatUtils.format(new Date(), DEFAULT_DATE_FORMAT));
         Gson gson = new Gson();
         // 本次参数及系统时间
         String nowParams = gson.toJson(request.getParameterMap());
