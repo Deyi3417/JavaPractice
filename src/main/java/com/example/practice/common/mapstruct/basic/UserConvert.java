@@ -1,8 +1,11 @@
 package com.example.practice.common.mapstruct.basic;
 
+import com.example.practice.common.constant.enums.UserEnums;
 import com.example.practice.domain.User;
 import com.example.practice.domain.vo.SafetyUser;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -22,6 +25,10 @@ public interface UserConvert {
      * @param user 用户信息
      * @return 安全用户
      */
+    @Mappings({
+            @Mapping(target = "genderName", expression = "java(getGenderName(user.getGender()))"),
+            @Mapping(target = "avatarUrl", ignore = true)
+    })
     SafetyUser toSafetyUser(User user);
 
     /**
@@ -31,4 +38,14 @@ public interface UserConvert {
      * @return 安全用户
      */
     List<SafetyUser> toSafetyUserList(List<User> users);
+
+    /**
+     * 根据性别编码获取名称
+     *
+     * @param gender
+     * @return
+     */
+    default String getGenderName(Integer gender) {
+        return UserEnums.UserGenderEnum.byCode(gender).getName();
+    }
 }

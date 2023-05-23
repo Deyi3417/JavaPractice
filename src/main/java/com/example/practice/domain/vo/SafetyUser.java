@@ -39,6 +39,9 @@ public class SafetyUser implements Serializable {
     @ApiModelProperty("性别")
     private Integer gender;
 
+    @ApiModelProperty("性别name")
+    private String genderName;
+
     @ApiModelProperty("电话")
     private String phone;
 
@@ -47,6 +50,9 @@ public class SafetyUser implements Serializable {
 
     @ApiModelProperty("用户状态 0-正常")
     private Integer userStatus;
+
+    @ApiModelProperty("用户状态 0-正常")
+    private String userStatusName;
 
     @ApiModelProperty("创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -58,6 +64,9 @@ public class SafetyUser implements Serializable {
 
     @ApiModelProperty("用户角色0-普通角色，1-管理员")
     private Integer userRole;
+
+    @ApiModelProperty("用户角色0-普通角色，1-管理员")
+    private Integer userRoleName;
 
     @ApiModelProperty("用户标签")
     private String tags;

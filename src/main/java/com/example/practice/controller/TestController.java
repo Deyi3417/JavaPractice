@@ -11,6 +11,7 @@ import com.example.practice.common.ajax.ResultUtils;
 import com.example.practice.common.annotation.RepeatSubmit;
 import com.example.practice.common.annotation.WhitelistedIP;
 import com.example.practice.common.config.properties.BasicProperties;
+import com.example.practice.common.constant.enums.UserEnums;
 import com.example.practice.common.exception.BusinessException;
 import com.example.practice.common.mapstruct.basic.UserConvert;
 import com.example.practice.domain.Tag;
@@ -68,6 +69,9 @@ public class TestController {
 
     @Resource
     private BasicProperties basicProperties;
+
+    @Resource
+    private UserConvert userConvert;
 
     @GetMapping("/fileToImg")
     @ApiOperation("测试文件转图片进行展示")
@@ -127,7 +131,13 @@ public class TestController {
     }
 
     @GetMapping("/list")
+    @ApiOperation("获取用户列表")
     public BasicResponse<List<User>> list() {
+        User user = userService.getById(2);
+        SafetyUser safetyUser = userConvert.toSafetyUser(user);
+        log.info("safetyUser===={}",safetyUser);
+        log.info("safetyUser:性别编码:{}====性别名称:{}",safetyUser.getGender(), safetyUser.getGenderName());
+        log.info("safetyUser:转换前头像:{}====转换后头像:{}",user.getAvatarUrl(), safetyUser.getAvatarUrl());
         List<User> userList = userService.list();
         return ResultUtils.success(userList);
     }
