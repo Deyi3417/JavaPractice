@@ -1,10 +1,12 @@
 package com.example.practice.common.aspect;
 
+import com.example.practice.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -22,6 +24,7 @@ import java.util.List;
 @Aspect
 @Component
 @Slf4j
+@Order(2)
 public class WhitelistedIPAspect {
 
     private static final List<String> IP_WHITELIST = Arrays.asList("127.0.0.1", "192.168.0.1","0:0:0:0:0:0:0:1");
