@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             userList = this.list();
             redisUtil.setHashValue(USER_LIST_KEY,"all", userList);
         }
-        return userList;
+        return this.list();
     }
 
     @Override

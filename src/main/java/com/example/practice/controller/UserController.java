@@ -6,6 +6,7 @@ import com.example.practice.domain.User;
 import com.example.practice.domain.request.UserLoginRequest;
 import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.service.UserService;
+import com.example.practice.utils.DateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -31,9 +32,9 @@ public class UserController {
 
     @GetMapping("/list")
     @ApiOperation("获取用户列表")
-    public List<User> getUser() {
-        log.info("程序执行了");
-        return userService.getUserList();
+    public BasicResponse<List<User>> getUser() {
+        log.info("程序执行了!!!===={}", DateUtil.getDefaultTime());
+        return ResultUtils.success(userService.getUserList());
     }
 
     @GetMapping("/getByIds")
