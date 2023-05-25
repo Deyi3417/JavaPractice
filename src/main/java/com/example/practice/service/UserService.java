@@ -15,10 +15,11 @@ import java.util.List;
  */
 public interface UserService extends IService<User> {
 
+
     /**
      * 获取用户列表
      *
-     * @return 用户列表
+     * @return {@link List}<{@link User}>
      */
     List<User> getUserList();
 
