@@ -44,7 +44,7 @@ swagger:
 
 logging:
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS}  %clr(%-5level){green} %clr(${pid}){magenta} --- [%20thread] %clr(%logger{42}){cyan} : %clr(%msg%n){yellow}"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS}  %clr(%-5level){green} %clr(${pid}){magenta} --- [%20thread] %clr(%logger{42}){cyan} : %msg%n"
   level:
     root: INFO
   file:

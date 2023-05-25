@@ -2,11 +2,13 @@ package com.example.practice.service.impl;
 
 import com.alibaba.excel.util.DateUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.practice.common.ajax.ErrorCode;
 import com.example.practice.common.exception.BusinessException;
 import com.example.practice.common.mapstruct.basic.UserConvert;
 import com.example.practice.domain.User;
+import com.example.practice.domain.request.PageSearchRequest;
 import com.example.practice.domain.vo.ExportUserVO;
 import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.mapper.UserMapper;
@@ -38,6 +40,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
     @Resource
+    private UserConvert userConvert;
+
+    @Resource
     private RedisUtil redisUtil;
 
     private static final String USER_LIST_KEY = "user:suyao";
@@ -45,12 +50,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public List<User> getUserList() {
 
-        List<User> userList = (List<User>) redisUtil.getHashValue(USER_LIST_KEY, "all");
-        if (userList == null) {
-            userList = this.list();
-            redisUtil.setHashValue(USER_LIST_KEY,"all", userList);
-        }
+//        List<User> userList = (List<User>) redisUtil.getHashValue(USER_LIST_KEY, "all");
+//        if (userList == null) {
+//            userList = this.list();
+//            redisUtil.setHashValue(USER_LIST_KEY,"all", userList);
+//        }
         return this.list();
+    }
+
+    @Override
+    public List<SafetyUser> getUserList(Page<SafetyUser> page, PageSearchRequest request) {
+        List<SafetyUser> list = this.baseMapper.getUserListbyPage(page, request);
+        return list;
     }
 
     @Override

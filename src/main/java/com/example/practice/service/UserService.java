@@ -1,7 +1,9 @@
 package com.example.practice.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.practice.domain.User;
+import com.example.practice.domain.request.PageSearchRequest;
 import com.example.practice.domain.vo.ExportUserVO;
 import com.example.practice.domain.vo.SafetyUser;
 
@@ -21,6 +23,15 @@ public interface UserService extends IService<User> {
      * @return 用户列表
      */
     List<User> getUserList();
+
+    /**
+     * 获取用户列表-带条件查询
+     *
+     * @param page    用户id数组
+     * @param request 用户id数组
+     * @return 用户列表
+     */
+    List<SafetyUser> getUserList(Page<SafetyUser> page, PageSearchRequest request);
 
     /**
      * 根据ids获取用户

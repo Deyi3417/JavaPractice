@@ -1,11 +1,16 @@
 package com.example.practice.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ResultUtils;
+import com.example.practice.common.mapstruct.basic.UserConvert;
 import com.example.practice.domain.User;
+import com.example.practice.domain.request.PageSearchRequest;
 import com.example.practice.domain.request.UserLoginRequest;
 import com.example.practice.domain.vo.SafetyUser;
 import com.example.practice.service.UserService;
+import com.example.practice.utils.BasicUtil;
 import com.example.practice.utils.DateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -24,17 +30,23 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/user")
-@Api(tags = "用户表控制器")
-public class UserController {
+@Api(tags = "用户控制器-UserController")
+public class UserController extends BasicUtil {
+
+    @Resource
+    private UserConvert userConvert;
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ApiOperation("获取用户列表")
-    public BasicResponse<List<User>> getUser() {
-        log.info("程序执行了!!!===={}", DateUtil.getDefaultTime());
-        return ResultUtils.success(userService.getUserList());
+    public BasicResponse<?> list(@RequestBody PageSearchRequest request) {
+        System.out.println("================" + request.getSearchText());
+        Page<SafetyUser> page = new Page<>(request.getCurrent(), request.getSize());
+        List<SafetyUser> userList = userService.getUserList(page, request);
+        Page<SafetyUser> safetyUserPage = page.setRecords(userList);
+        return ResultUtils.success(safetyUserPage);
     }
 
     @GetMapping("/getByIds")

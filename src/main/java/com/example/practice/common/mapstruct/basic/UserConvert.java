@@ -27,7 +27,7 @@ public interface UserConvert {
      */
     @Mappings({
             @Mapping(target = "genderName", expression = "java(getGenderName(user.getGender()))"),
-            @Mapping(target = "avatarUrl", ignore = true)
+            // @Mapping(target = "avatarUrl", ignore = true)
     })
     SafetyUser toSafetyUser(User user);
 

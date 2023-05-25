@@ -1,8 +1,12 @@
 package com.example.practice.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.practice.domain.User;
+import com.example.practice.domain.request.PageSearchRequest;
 import com.example.practice.domain.vo.ExportUserVO;
+import com.example.practice.domain.vo.SafetyUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -43,6 +47,8 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 导出用户信息
      */
     List<ExportUserVO> getExportUserVO();
+
+    List<SafetyUser> getUserListbyPage(Page<SafetyUser> page, PageSearchRequest params);
 }
 
 
