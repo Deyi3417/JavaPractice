@@ -244,8 +244,7 @@ public class FileUtil {
         try {
             InputStream is = FileUtil.class.getClassLoader().getResourceAsStream("D:\\az\\maven\\repository\\com\\aspose\\License.xml");
             // InputStream is = new FileInputStream(new File("D:\\az\\maven\\repository\\com\\aspose\\License.xml"));
-            License license = new License();
-            license.setLicense(is);
+
             result = true;
         } catch (Exception e) {
             e.printStackTrace();
