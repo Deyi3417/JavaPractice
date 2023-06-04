@@ -8,6 +8,7 @@ import com.example.practice.common.ajax.AjaxResult;
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ErrorCode;
 import com.example.practice.common.ajax.ResultUtils;
+import com.example.practice.common.annotation.NoRepeatSubmit;
 import com.example.practice.common.annotation.RepeatSubmit;
 import com.example.practice.common.annotation.WhitelistedIP;
 import com.example.practice.common.config.properties.BasicProperties;
@@ -132,14 +133,15 @@ public class TestController {
 
     @GetMapping("/list")
     @ApiOperation("获取用户列表")
-    public BasicResponse<List<User>> list() {
+    @NoRepeatSubmit
+    public BasicResponse<SafetyUser> list() {
         User user = userService.getById(2);
         SafetyUser safetyUser = userConvert.toSafetyUser(user);
-        log.info("safetyUser===={}",safetyUser);
-        log.info("safetyUser:性别编码:{}====性别名称:{}",safetyUser.getGender(), safetyUser.getGenderName());
-        log.info("safetyUser:转换前头像:{}====转换后头像:{}",user.getAvatarUrl(), safetyUser.getAvatarUrl());
-        List<User> userList = userService.list();
-        return ResultUtils.success(userList);
+//        log.info("safetyUser===={}",safetyUser);
+//        log.info("safetyUser:性别编码:{}====性别名称:{}",safetyUser.getGender(), safetyUser.getGenderName());
+//        log.info("safetyUser:转换前头像:{}====转换后头像:{}",user.getAvatarUrl(), safetyUser.getAvatarUrl());
+//        List<User> userList = userService.list();
+        return ResultUtils.success(safetyUser);
     }
 
     @GetMapping("/getById")
@@ -157,7 +159,6 @@ public class TestController {
     @PostMapping("/date")
     @ApiOperation("测试时间格式转化")
     public BasicResponse<?> dateFormat(@RequestBody RequestTestVO request) {
-
         log.info("传入的参数：{}====={}", request.getId(), request.getExpectedEndTime());
         User user = userService.getById(request.getId());
         user.setUpdateTime(request.getExpectedEndTime());
