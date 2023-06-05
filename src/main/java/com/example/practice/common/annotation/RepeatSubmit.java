@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface RepeatSubmit {
 
-    public int interval() default 5000;
+    int interval() default 5000;
 
-    public String message() default "不允许重复提交，请稍后再试";
+    String message() default "不允许重复提交，请稍后再试";
 }

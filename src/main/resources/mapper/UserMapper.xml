@@ -60,7 +60,7 @@
         select * from user
         where 1 = 1
 #         and username = #{params.searchText}
-        <if test="params.searchText != null">
+        <if test="searchText != null">
             AND username = #{params.searchText}
         </if>
 
