@@ -19,5 +19,5 @@ public interface TestService {
      * @param id
      * @return
      */
-    SafetyUser getUserById(String id);
+    void getUserById(String id);
 }

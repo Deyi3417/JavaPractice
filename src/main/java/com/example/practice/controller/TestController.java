@@ -12,7 +12,6 @@ import com.example.practice.common.annotation.NoRepeatSubmit;
 import com.example.practice.common.annotation.RepeatSubmit;
 import com.example.practice.common.annotation.WhitelistedIP;
 import com.example.practice.common.config.properties.BasicProperties;
-import com.example.practice.common.constant.enums.UserEnums;
 import com.example.practice.common.exception.BusinessException;
 import com.example.practice.common.mapstruct.basic.UserConvert;
 import com.example.practice.domain.Tag;
@@ -45,6 +44,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 刘德意
@@ -302,6 +303,31 @@ public class TestController {
     public BasicResponse<?> reviewText(HttpServletResponse response, @RequestParam String filePath) {
         fileHandlerService.reviewTextFile(response, new File(filePath));
         return ResultUtils.success();
+    }
+
+    @GetMapping("/query")
+    @ApiOperation("测试异步处理")
+    public BasicResponse<?> testAsyncHandle() {
+        CompletableFuture<User> future = CompletableFuture.supplyAsync(() -> {
+            // 模拟一个耗时
+            System.out.println("当前系统时间1：" + DateUtil.getDefaultTime());
+            try {
+                TimeUnit.SECONDS.sleep(15);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return userService.getById(1);
+        });
+        // 注册回调函数，处理异步操作完成后的结果
+        future.thenAccept(result -> {
+                System.out.println("当前系统时间2：" + DateUtil.getDefaultTime());
+            System.out.println("异步处理的结果：" + result);
+                });
+        // 执行其它操作，不会被阻塞
+        User user = userService.getById(2);
+        // 等待异步操作完
+        System.out.println("当前系统时间3：" + DateUtil.getDefaultTime());
+        return ResultUtils.success(user);
     }
 
 

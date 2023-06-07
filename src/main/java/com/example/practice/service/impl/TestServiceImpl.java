@@ -7,6 +7,7 @@ import com.example.practice.service.TestService;
 import com.example.practice.service.UserService;
 import com.example.practice.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class TestServiceImpl implements TestService {
     private UserConvert userConvert;
 
     @Override
-    public SafetyUser getUserById(String id) {
+    public void getUserById(String id) {
         // 创建一个CompletableFuture对象，表示异步操作
         System.out.println("当前系统时间impl01: " + DateUtil.getDefaultTime());
         CompletableFuture<SafetyUser> future = CompletableFuture.supplyAsync(() -> {
@@ -47,6 +48,18 @@ public class TestServiceImpl implements TestService {
         });
         System.out.println("当前系统时间impl03: " + DateUtil.getDefaultTime());
         System.out.println("user:");
-        return userConvert.toSafetyUser(userService.getById(6));
+        log.info("获取用户6:{}" , userService.getById(3));
+
+        CompletableFuture.supplyAsync(() -> {
+            try {
+                System.out.println("异步线程处理02=========================================");
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("当前系统时间 new === 06: " + DateUtil.getDefaultTime());
+            System.out.println("获取用户2: " + userService.getById(1));
+            return StringUtils.EMPTY;
+        });
     }
 }

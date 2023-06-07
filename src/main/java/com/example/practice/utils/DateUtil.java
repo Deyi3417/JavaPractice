@@ -5,6 +5,8 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -52,6 +54,8 @@ public class DateUtil {
      * 日期格式: yyyyMMdd
      */
     public static final String C_DATE_PATTERN_PARSE_2 = "yyyyMMdd";
+
+    public static final String C_DATA_PATTON_YYYYMMDD = "yyyyMMdd";
 
     /**
      * 日期格式: HHmmss
@@ -218,5 +222,18 @@ public class DateUtil {
     public static int diffDays(Date date1, Date date2) {
         long diff = Math.abs(date1.getTime() - date2.getTime());
         return (int) (diff / (24 * 60 * 60 * 1000));
+    }
+
+    /**
+     * 解析时间 yyyyMMdd 为 yyyy-MM-dd
+     *
+     * @param dateString yyyyMMdd 日期格式
+     * @return yyyy-MM-dd 日期格式
+     */
+    public static String parseDateToDateString(String dateString) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(C_DATA_PATTON_YYYYMMDD);
+        LocalDate date = LocalDate.parse(dateString, inputFormatter);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(C_DATE_PATTERN_DEFAULT);
+        return date.format(outputFormatter);
     }
 }
