@@ -84,6 +84,7 @@ public class TestController {
     }
 
     @GetMapping("/getByIds")
+    @ApiOperation("获取用户by ids")
     public AjaxResult getUserByIds(Integer[] ids) {
         log.info("根据ids获取用户执行了");
         if (ids.length == 0) {

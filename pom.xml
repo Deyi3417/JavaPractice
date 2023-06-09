@@ -171,19 +171,20 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/fr.opensagres.xdocreport/fr.opensagres.poi.xwpf.converter.pdf -->
+        <!-- 其它可用的 -->
         <dependency>
             <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>fr.opensagres.poi.xwpf.converter.pdf</artifactId>
             <version>2.0.4</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.aspose</groupId>-->
-<!--            <artifactId>aspose-words</artifactId>-->
-<!--            <version>19.5.0</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>D:/az/maven/repository/com/aspose/aspose-words-19.5jdk.jar</systemPath>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.aspose</groupId>-->
+        <!--            <artifactId>aspose-words</artifactId>-->
+        <!--            <version>19.5.0</version>-->
+        <!--            <scope>system</scope>-->
+        <!--            <systemPath>D:/az/maven/repository/com/aspose/aspose-words-19.5jdk.jar</systemPath>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.luhuiguo</groupId>
@@ -210,13 +211,13 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>com.aspose</groupId>-->
-<!--            <artifactId>aspose-slides</artifactId>-->
-<!--            <version>15.9.0</version>-->
-<!--            <scope>system</scope>-->
-<!--            <systemPath>D:/az/maven/repository/com/aspose/aspose.slides-15.9.0.jar</systemPath>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.aspose</groupId>-->
+        <!--            <artifactId>aspose-slides</artifactId>-->
+        <!--            <version>15.9.0</version>-->
+        <!--            <scope>system</scope>-->
+        <!--            <systemPath>D:/az/maven/repository/com/aspose/aspose.slides-15.9.0.jar</systemPath>-->
+        <!--        </dependency>-->
 
     </dependencies>
 

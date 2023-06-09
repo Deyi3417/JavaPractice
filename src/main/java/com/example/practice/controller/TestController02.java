@@ -21,8 +21,8 @@ import java.util.HashMap;
  */
 @RestController
 @Slf4j
-@Api(tags = "测试控制器02-0605")
 @RequestMapping("/test02")
+@Api(tags = "测试控制器02-0605")
 public class TestController02 {
 
     @Resource

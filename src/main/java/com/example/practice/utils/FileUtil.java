@@ -1,10 +1,7 @@
 package com.example.practice.utils;
 
-import com.aspose.cells.PageSetup;
-import com.aspose.cells.Range;
 import com.aspose.cells.Workbook;
 import com.aspose.cells.Worksheet;
-import com.aspose.slides.License;
 import com.aspose.slides.Presentation;
 import com.aspose.slides.SaveFormat;
 import com.aspose.words.Document;
@@ -175,6 +172,11 @@ public class FileUtil {
         }
     }
 
+    /**
+     * ppt转pdf
+     *
+     * @param pptFilePath
+     */
     public static void asposePptToPdf(String pptFilePath) {
         try {
             Presentation pres = new Presentation(pptFilePath);
@@ -186,6 +188,12 @@ public class FileUtil {
         }
     }
 
+    /**
+     * ppf转pdf,输出到本地路径
+     *
+     * @param pptSourceFilePath 源路径
+     * @param outputFilePath    输出路径
+     */
     public static void asposePptToPdf(File pptSourceFilePath, String outputFilePath) {
         try {
             FileInputStream fileInputStream = new FileInputStream(pptSourceFilePath);
@@ -218,6 +226,12 @@ public class FileUtil {
         }
     }
 
+    /**
+     * excel转pdf
+     *
+     * @param excelSourceFile 文件源路径
+     * @param outputFilePath  输出到本地路径
+     */
     public static void asposeExcelToPdf(File excelSourceFile, String outputFilePath) {
         try {
             FileInputStream fileInputStream = new FileInputStream(excelSourceFile);
@@ -252,6 +266,12 @@ public class FileUtil {
         return result;
     }
 
+    /**
+     * 输入文件获取图片流
+     *
+     * @param file
+     * @return
+     */
     public static BufferedImage getImagStream(File file) {
         PDDocument pdDocument = null;
         BufferedImage bufferedImage;

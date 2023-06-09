@@ -4,14 +4,11 @@ import com.example.practice.common.config.properties.BasicProperties;
 import com.example.practice.common.convert.FileConvert;
 import com.example.practice.utils.FileUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.xmlbeans.ResourceLoader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URL;
 import java.util.Properties;
 
 /**

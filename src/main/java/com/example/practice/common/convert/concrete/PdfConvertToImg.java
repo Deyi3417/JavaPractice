@@ -2,14 +2,10 @@ package com.example.practice.common.convert.concrete;
 
 import com.example.practice.common.convert.FileConvert;
 import com.example.practice.utils.FileUtil;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.rendering.PDFRenderer;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Pdf文件转图片流
