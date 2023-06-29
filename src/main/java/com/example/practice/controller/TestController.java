@@ -135,7 +135,7 @@ public class TestController {
 
     @GetMapping("/list")
     @ApiOperation("获取用户列表")
-    @NoRepeatSubmit
+    @NoRepeatSubmit(message = "请5s后重试")
     public BasicResponse<SafetyUser> list() {
         User user = userService.getById(2);
         SafetyUser safetyUser = userConvert.toSafetyUser(user);
@@ -289,14 +289,16 @@ public class TestController {
         userService.updateById(user);
         response.sendRedirect("http://localhost:9080/api/test/target");
         List<User> userList = userService.getUserList();
+        System.out.println("这边的代码会执行吗？");
         return ResultUtils.success(userList);
     }
 
     @GetMapping("/target")
     @ApiOperation("重定向目标地址-获取数据")
     public BasicResponse<List<User>> redirect() {
-        List<User> userList = userService.getUserList();
-        return ResultUtils.success(userList);
+        System.out.println("deyi is so handsome!");
+//        List<User> userList = userService.getUserList();
+        return ResultUtils.success();
     }
 
     @GetMapping("/text")

@@ -1,19 +1,27 @@
 package com.example.practice.controller;
 
+import cn.hutool.core.convert.Convert;
+import com.alibaba.fastjson.JSON;
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ResultUtils;
+import com.example.practice.domain.User;
 import com.example.practice.service.TestService;
+import com.example.practice.service.UserService;
 import com.example.practice.utils.DateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author : liudy23
@@ -28,6 +36,12 @@ public class TestController02 {
     @Resource
     private TestService testService;
 
+    @Resource
+    private UserService userService;
+
+    @Value("${oa.test_user}")
+    private String oaTestUser;
+
     /**
      * 异步处理，根据id获取用户
      *
@@ -37,12 +51,18 @@ public class TestController02 {
     @GetMapping("/getUserById/{id}")
     @ApiOperation("根据用户id获取用户")
     public BasicResponse getUserById(@PathVariable("id") String id) {
-        String dateString = DateUtil.parseDateToDateString("20230606");
-        System.out.println(dateString);
-        System.out.println(new HashMap<String, Object>().size());
-        // testService.getUserById(id);
-        System.out.println("当前系统时间controller: " + DateUtil.getDefaultTime());
-        return ResultUtils.success();
+        User user = userService.getById(9);
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", new User());
+
+        List<String> users = Arrays.asList(oaTestUser.split(","));
+        if (!(oaTestUser.equals("all") || users.contains(Convert.toStr(3706)))) {
+            System.out.println("测试获取配置文件信息：" + JSON.toJSONString(oaTestUser));
+            System.out.println("测试获取配置文件信息2：" + JSON.toJSONString(users));
+        } else {
+            System.out.println("取反");
+        }
+        return ResultUtils.success(map);
     }
 
 }

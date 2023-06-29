@@ -65,3 +65,5 @@ basic:
   file_ipWhite_file: D:\tmp\ipWhite\ipwhitelist.txt
   file-temp-pdf: D:\tmp\usercenter\tempFile\pdf_file\Temp.pdf
   address: hunan
+oa:
+  test_user: 3706,3699

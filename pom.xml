@@ -219,6 +219,13 @@
         <!--            <systemPath>D:/az/maven/repository/com/aspose/aspose.slides-15.9.0.jar</systemPath>-->
         <!--        </dependency>-->
 
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.11</version>
+        </dependency>
+
     </dependencies>
 
     <build>
