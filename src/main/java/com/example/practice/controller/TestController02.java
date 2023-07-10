@@ -2,9 +2,11 @@ package com.example.practice.controller;
 
 import cn.hutool.core.convert.Convert;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ResultUtils;
 import com.example.practice.domain.User;
+import com.example.practice.mapper.UserMapper;
 import com.example.practice.service.TestService;
 import com.example.practice.service.UserService;
 import com.example.practice.utils.DateUtil;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.sql.Wrapper;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +42,9 @@ public class TestController02 {
     @Resource
     private UserService userService;
 
+    @Resource
+    private UserMapper userMapper;
+
     @Value("${oa.test_user}")
     private String oaTestUser;
 
@@ -51,7 +57,10 @@ public class TestController02 {
     @GetMapping("/getUserById/{id}")
     @ApiOperation("根据用户id获取用户")
     public BasicResponse getUserById(@PathVariable("id") String id) {
-        User user = userService.getById(9);
+        List<User> user = userMapper.selectList(new QueryWrapper<User>()
+                .like("username","苏"));
+
+        User user1 = userService.getById(4);
         Map<String, Object> map = new HashMap<>();
         map.put("user", new User());
 
@@ -64,5 +73,7 @@ public class TestController02 {
         }
         return ResultUtils.success(map);
     }
+
+
 
 }
