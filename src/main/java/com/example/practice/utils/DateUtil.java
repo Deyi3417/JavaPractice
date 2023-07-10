@@ -1,5 +1,6 @@
 package com.example.practice.utils;
 
+import net.bytebuddy.asm.Advice;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -235,5 +236,20 @@ public class DateUtil {
         LocalDate date = LocalDate.parse(dateString, inputFormatter);
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(C_DATE_PATTERN_DEFAULT);
         return date.format(outputFormatter);
+    }
+
+    /**
+     * 获取当前日期的中文格式
+     *
+     * @return 示例：2023年07月10日
+     */
+    public static String getCurrentChineseDate() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
+        return now.format(formatter);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getCurrentChineseDate());
     }
 }
