@@ -2,6 +2,7 @@ package com.example.practice.common.mapstruct.basic;
 
 import com.example.practice.common.constant.enums.UserEnums;
 import com.example.practice.domain.User;
+import com.example.practice.domain.vo.ExportUserVO;
 import com.example.practice.domain.vo.SafetyUser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -38,6 +39,8 @@ public interface UserConvert {
      * @return 安全用户
      */
     List<SafetyUser> toSafetyUserList(List<User> users);
+
+    List<ExportUserVO> toExpotrUserList(List<User> users);
 
     /**
      * 根据性别编码获取名称
