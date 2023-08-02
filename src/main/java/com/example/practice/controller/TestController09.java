@@ -28,6 +28,7 @@ import com.example.practice.utils.DateUtil;
 import com.example.practice.utils.FileUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -53,15 +54,12 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @Slf4j
-@RequestMapping("/test")
+@RequestMapping("/test09")
 @Api(tags = "TestController 测试")
-public class TestController {
+@RequiredArgsConstructor
+public class TestController09 {
 
-    public static final String PDF_FILE_1 = "D:\\tmp\\usercenter\\saveFile\\2023-03-17\\liudy23.pdf";
-    public static final String PDF_FILE_2 = "D:\\tmp\\usercenter\\saveFile\\2023-03-17\\liudy23.docx";
-
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @Resource
     private FileHandlerService fileHandlerService;
@@ -74,6 +72,14 @@ public class TestController {
 
     @Resource
     private UserConvert userConvert;
+
+    @GetMapping("/getUser")
+    @ApiOperation("获取用户-@RequiredArgsConstructor注解")
+    private BasicResponse<List<User>> getUser() {
+        List<User> list = userService.list();
+        return ResultUtils.success(list);
+    }
+
 
     @GetMapping("/fileToImg")
     @ApiOperation("测试文件转图片进行展示")
@@ -302,7 +308,7 @@ public class TestController {
     }
 
     @GetMapping("/text")
-    @ApiOperation(".text文件预览")
+    @ApiOperation("text文件预览")
     public BasicResponse<?> reviewText(HttpServletResponse response, @RequestParam String filePath) {
         fileHandlerService.reviewTextFile(response, new File(filePath));
         return ResultUtils.success();
