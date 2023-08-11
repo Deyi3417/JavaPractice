@@ -34,18 +34,6 @@ public class TestController03 {
 
     private final UserService userService;
 
-    @Resource
-    private FileHandlerService fileHandlerService;
-
-    @Resource
-    private TagService tagService;
-
-    @Resource
-    private BasicProperties basicProperties;
-
-    @Resource
-    private UserConvert userConvert;
-
     @GetMapping("/getUser")
     @ApiOperation("获取用户-@RequiredArgsConstructor注解")
     private BasicResponse<List<User>> getUser() {
