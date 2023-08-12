@@ -1,4 +1,4 @@
-package com.example.practice.controller;
+package com.example.practice.controller.test;
 
 import com.example.practice.common.ajax.BasicResponse;
 import com.example.practice.common.ajax.ResultUtils;

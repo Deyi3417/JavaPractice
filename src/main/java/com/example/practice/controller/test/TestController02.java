@@ -1,4 +1,4 @@
-package com.example.practice.controller;
+package com.example.practice.controller.test;
 
 import cn.hutool.core.convert.Convert;
 import com.alibaba.fastjson.JSON;
